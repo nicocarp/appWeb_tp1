@@ -1,0 +1,32 @@
+{"VentaProductos":
+ [
+  {"Futbol":
+   [
+    {"Nombre":"Futbol Nro5","Cantidad":10},
+    {"Nombre":"Botines","Cantidad":20},
+    {"Nombre":"Pantalon","Cantidad":30}
+   ]
+  },
+  {"Boxeo":
+   [
+    {"Nombre":"Guantes Boxeo","Cantidad":80},
+    {"Nombre":"Bolsa Boxeo","Cantidad":15},
+    {"Nombre":"Pera","Cantidad":50}
+   ]
+  },
+  {"MMA":
+   [
+    {"Nombre":"Guantes MMA","Cantidad":80},
+    {"Nombre":"Tatami","Cantidad":15},
+    {"Nombre":"Vendas","Cantidad":50}
+   ]
+  },
+  {"Tenis":
+   [
+    {"Nombre":"Raqueta","Cantidad":80},
+    {"Nombre":"Pelota","Cantidad":15},
+    {"Nombre":"Zapatillas","Cantidad":50}
+   ]
+  }
+ ]
+}

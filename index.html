@@ -1,21 +1,56 @@
+<!DOCTYPE html>
 <html>
-<head>
-	
-	<script type="text/javascript" src='https://code.jquery.com/jquery-3.1.1.slim.min.js'></script>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-	<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+<head lang="es">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<script type="text/javascript" src="estaticos/jquery/jquery.js"></script>
+	<script type="text/javascript" src="estaticos/jquery/jquery.min.js"></script>
+	<script src="https://code.jquery.com/qunit/qunit-2.2.1.js"></script>
+	<link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.2.1.css">
+	<script src="tests.js"></script>
+	<script src="Ventas.js"></script>
 	<title>Productos</title>
 </head>
 <body>
 	<h1>Productos</h1>
-	<div class="container">
-		<div class="btn-group" role="group" aria-label="Basic example">
-		  <button type="button" class="btn btn-secondary">Left</button>
-		  <button type="button" class="btn btn-secondary">Middle</button>
-		  <button type="button" class="btn btn-secondary">Right</button>
-		</div>
-	</div>
+	<div id="productos"></div>
+	<ul id="lista_productos">
+
+	</ul>
+	<h1>Compras</h1>
+	<div class="compras"></div>
+	<ul id="lista_carro"></ul>
+
+
 </body>
+	<div id="qunit"></div>
+  	<div id="qunit-fixture"></div>
 </html>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		
+		$.getJSON( "datos.json", function(datos) {
+			$.each( datos.ProductosVentas,function(i, producto){
+				var li = $('<li onclick=\"click_producto()\"">'+producto.nombre+' '+producto.cantidad+'</li>');
+	        	$("#lista_productos").append(li);
+	        });			
+		});
+
+		/*--------- Trabajamos  --------- */
+		$.getJSON( "datos.json", function(datos) {
+			var carrito = new Carro();
+			var ventas = new Ventas(datos.ProductosVentas, carrito);
+			/*testeando funciones del carro */
+			carrito.agregarAlCarro(ventas.seleccionProducto(1), 2);
+			carrito.agregarAlCarro(ventas.seleccionProducto(0), 2);
+			carrito.sacarDelCarro(1);
+			console.log(carrito.calcularTotal());
+		});
+		/*---------		Fin      --------- */
+
+
+
+	});
+	
+
+</script>
