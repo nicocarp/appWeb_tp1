@@ -16,7 +16,7 @@
         "nombre":"Botines",
         "cantidad":12,
         "precio":12,
-        "imagen":"estaticos/imagenes/guantes.jpg"
+        "imagen":"estaticos/imagenes/pelota.jpg"
       },
       {
         "nombre":"Vendas",
@@ -28,7 +28,7 @@
         "nombre":"Guantes MMA",
         "cantidad":14,
         "precio":14,
-        "imagen":"estaticos/imagenes/guantes.jpg"
+        "imagen":"estaticos/imagenes/pelota.jpg"
       },
       {
         "nombre":"Bolsa Boxeo",
@@ -40,7 +40,7 @@
         "nombre":"Raqueta Tennis",
         "cantidad":10,
         "precio":10,
-        "imagen":"estaticos/imagenes/guantes.jpg"
+        "imagen":"estaticos/imagenes/tennis.jpeg"
       }      
   ]
 }

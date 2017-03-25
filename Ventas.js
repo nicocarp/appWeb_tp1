@@ -3,9 +3,10 @@ function Carro(){
 	this.calcularTotal = calcularTotal;
 	this.agregarAlCarro = agregarAlCarro;
 	this.sacarDelCarro = sacarDelCarro;
+	
 	function calcularTotal(){
 		var total = 0; 
-		for (i in this.productos){
+		for (var i in this.productos){
 			total += this.productos[i].producto.precio * this.productos[i].cantidad;
 		}
 		console.log("por retornar e total"+Number(total) );
@@ -15,10 +16,9 @@ function Carro(){
 		if (cantidad > 0){
 			this.productos.push({"producto": producto, "cantidad": cantidad});	
 		}
-		
 	}
 	function sacarDelCarro(indice){
-		this.productos.splice(indice, indice);
+		this.productos.splice(indice, 1);
 	}
 }
 
@@ -31,6 +31,7 @@ function Ventas(productos, carro){
 	this.mostrarPropiedades = mostrarPropiedades;
 	this.promociones = promociones;
 	this.seleccionProducto = seleccionProducto;
+	this.checkout = checkout;
 	function seleccionProducto(indice){
 		return this.productos[indice];
 	}
@@ -67,6 +68,26 @@ function Ventas(productos, carro){
 	}
 	function promociones(){
 		console.log("No Manejamos promociones D: !!!");
+	}
+	function checkout(){
+		// aca hay que tener en cuenta las promociones
+		return this.carro.calcularTotal();
+	}
+}
+function Promocion(productos){
+	this.combos = []
+	this.generarPromociones = function(productos){
+		// usar numeros random y no literales
+		// para producto 0 comprando 1 unidad hay un descuento del 20%
+		combos.push({"productos": [productos[0]], "cantidad":1, "descuento":20 });
+		combos.push({"productos": [productos[1]], "cantidad":2, "descuento":10 });
+		combos.push({"productos": [productos[1],productos[2],productos[3] ], "cantidad":1, "descuento":20 })
+	};
+	this.getPromociones = function(){
+		return this.combos;
+	};
+	this.checkout = function(lista_carro){
+		return -1
 	}
 
 
