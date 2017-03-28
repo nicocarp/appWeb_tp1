@@ -35,8 +35,8 @@ function Ventas(productos, carro){
 	function seleccionProducto(indice){
 		return this.productos[indice];
 	}
-	function agregarAlCarro(producto, cantidad){
-		this.carro.agregarAlCarro(producto, cantidad);
+	function agregarAlCarro(i_prod, cantidad){
+		this.carro.agregarAlCarro(this.productos[i_prod], cantidad);
 	}
 	function mostrarPropiedades(){
 		console.log("Mis propiedades");
@@ -77,7 +77,7 @@ function Ventas(productos, carro){
 function Promocion(productos){
 	this.combos = []
 	this.generarPromociones = function(productos){
-		// usar numeros random y no literales
+		// usar numeros random		
 		// para producto 0 comprando 1 unidad hay un descuento del 20%
 		combos.push({"productos": [productos[0]], "cantidad":1, "descuento":20 });
 		combos.push({"productos": [productos[1]], "cantidad":2, "descuento":10 });
@@ -89,8 +89,47 @@ function Promocion(productos){
 	this.checkout = function(lista_carro){
 		return -1
 	}
-
-
-
 }
 
+function ProductoFactory(productos_json){
+	var atributos_producto;
+	var productos = [];
+	for (i in productos_json){
+		atributos_producto = Object.keys(productos_json[i]);
+		var nuevo_producto = new Producto();
+		for (k in atributos_producto){
+			nuevo_producto[atributos_producto[k]] = productos_json[i][atributos_producto[k]];
+			productos.push(nuevo_producto);
+		}
+	}
+	return productos;
+}
+
+function Producto(){
+	this.devolverNombre = function(){
+				return this.nombre;
+	}
+	
+	this.disminuirStock = function(cant_disminuir){
+		var c = this.cantidad - cant_disminuir;
+		if (c < 0){
+			return false;
+		}
+		this.cantidad = c;
+		return true;
+	},
+	
+	this.aumentarStock = function(cant_aumentar){
+		var c = this.cantidad + cant_aumentar;
+		this.cantidad = c;
+		return true;
+	},
+	
+	this.alcanzaStock = function(cantidad_pedida){
+		if (cantidad_pedida > this.cantidad){
+			return false;
+		}
+		return true;
+
+	}
+}

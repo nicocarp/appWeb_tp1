@@ -2,11 +2,11 @@
 <html>
 <head lang="es">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<script type="text/javascript" src="estaticos/js/jquery.js"></script>
+	
 	<script type="text/javascript" src="estaticos/js/jquery.min.js"></script>
 	<script src="estaticos/js/qunit.js"></script>
 	<link rel="stylesheet" href="estaticos/css/qunit.css">
-      <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<script type="text/javascript" src="estaticos/js/materialize.min.js"></script>
 	<script src="estaticos/js/utils.js"></script>
 	<link type="text/css" rel="stylesheet" href="estaticos/css/materialize.min.css"  media="screen,projection"/>
@@ -32,8 +32,7 @@
   		</div>
   	<div class="container">
     <div class="section">
-      	<ul id="lista_productos" class="row produktliste">
-      		
+      	<ul id="lista_productos" class="row produktliste">      		
       	</ul>
     </div>
   </div>
@@ -50,7 +49,7 @@
 	var ventas;
 	function click_producto(i){
 		console.log("agegado al carro" + i);
-		ventas.agregarAlCarro(ventas.seleccionProducto(i), 1);
+		ventas.agregarAlCarro(i, 1);
 	}
 
 	function checkout(){
@@ -62,19 +61,14 @@
 		$.getJSON( "datos.json", function(datos) {
 			carrito = new Carro();
 			ventas = new Ventas(datos.ProductosVentas, carrito);
+			ventas.productos = new ProductoFactory(datos.ProductosVentas);
+			// los mostramos como HTML ARREGLAR
 			$.each( ventas.productos,function(i, producto){
 				var li = generar_li(producto.nombre, producto.precio, producto.imagen,i);
 	        	$("#lista_productos").append(li);
-	        });			
+			});
 		});
-
-		/*--------- Trabajamos  --------- */
-		
-		/*---------		Fin      --------- */
-
-
-
-	});
+});
 	
 
 </script>
