@@ -7,14 +7,17 @@ function Carro(){
 	function calcularTotal(){
 		var total = 0; 
 		for (var i in this.productos){
-			total += this.productos[i].producto.precio * this.productos[i].cantidad;
+			total += this.productos[i].precioSubTotal;
 		}
-		console.log("por retornar e total"+Number(total) );
 		return total;
 	}
 	function agregarAlCarro(producto, cantidad){
 		if (cantidad > 0){
-			this.productos.push({"producto": producto, "cantidad": cantidad});	
+			this.productos.push({
+				"producto": producto, 
+				"cantidad": cantidad,
+				"precioSubTotal":producto.precio * cantidad
+			});	
 		}
 	}
 	function sacarDelCarro(indice){
@@ -24,8 +27,7 @@ function Carro(){
 
 function Ventas(productos, carro){
 	//this.productos = productos;
-	this.iniciarProductos = iniciarProductos;
-	this.productos = iniciarProductos(productos);
+	this.productos = productos;
 	this.carro = carro;
 	this.agregarAlCarro = agregarAlCarro;
 	this.mostrarPropiedades = mostrarPropiedades;
@@ -42,30 +44,7 @@ function Ventas(productos, carro){
 		console.log("Mis propiedades");
 		console.log('Productos '+this.productos);
 		console.log('Carrito '+this.carro);
-	}
-	function iniciarProductos(productos){
-		for (p in productos){
-			productos[p].devolverNombre = function(){
-				return this.nombre;
-			}
-			
-			productos[p].disminuirStock = function(cant_disminuir){
-				var c = this.cantidad - cant_disminuir;
-				if (c < 0){
-					return false;
-				}
-				this.cantidad = c;
-				return true;
-			},
-			
-			productos[p].aumentarStock = function(cant_aumentar){
-				var c = this.cantidad + cant_aumentar;
-				this.cantidad = c;
-				return true;
-			}			
-		}
-		return productos;
-	}
+	}	
 	function promociones(){
 		console.log("No Manejamos promociones D: !!!");
 	}
@@ -99,8 +78,9 @@ function ProductoFactory(productos_json){
 		var nuevo_producto = new Producto();
 		for (k in atributos_producto){
 			nuevo_producto[atributos_producto[k]] = productos_json[i][atributos_producto[k]];
-			productos.push(nuevo_producto);
 		}
+		nuevo_producto.indice = i; // pos en la lista de: ventas y en el ul html
+		productos.push(nuevo_producto);
 	}
 	return productos;
 }

@@ -12,6 +12,8 @@
 	<link type="text/css" rel="stylesheet" href="estaticos/css/materialize.min.css"  media="screen,projection"/>
 	<script src="tests.js"></script>
 	<script src="Ventas.js"></script>
+	<script type="text/javascript" src="estaticos/js/underscore.js"></script>
+	
 	<title>Productos</title>
 </head>
 <body>
@@ -20,9 +22,10 @@
 			<a href="#!" class="brand-logo"><i class="material-icons">cloud</i>Logo</a>
 			<ul class="right hide-on-med-and-down">
 				<li><a href="sass.html"><i class="material-icons">search</i></a></li>
-				<li><a><i onclick="checkout()" class="material-icons">shopping_cart</i></a></li>
+				<li><a onclick="Materialize.showStaggeredList('#checkout-div')"><i onclick="checkout()" class="material-icons">shopping_cart</i></a></li>
+
 			</ul>
-		</div>		
+		</div>
 	</nav>
 
 	<div class="section no-pad-bot" id="index-banner">
@@ -33,20 +36,42 @@
   	<div class="container">
     <div class="section">
       	<ul id="lista_productos" class="row produktliste">      		
-      	</ul>
+      	</ul>     	
     </div>
   </div>
 
-	
-</body>
 	<div id="qunit"></div>
   	<div id="qunit-fixture"></div>
+</body>
+	
 </html>
 
+<script id="producto-tpl" type="text/template">	
+	<li class="product-grid-layout animated bounceIn item last col s12 m6 l3 product-item-box">
+		<div class="card">
+			<div class="card-image">
+				<img src="{{imagen}}">	
+					<span class="card-title"></span>
+					<a class="btn-floating halfway-fab waves-effect waves-light red"
+						onclick="click_producto({{indice}})"
+					>
+						<i class="material-icons">add</i>		
+					</a>
+			</div>
+		<div class="card-content">
+		<p>{{nombre}}</p><p> {{precio}}</p>		
+	</li>
+</script>
+
+
+
 <script type="text/javascript">
-	
-	var carrito;
-	var ventas;
+	_.templateSettings = {
+	  interpolate: /\{\{(.+?)\}\}/g
+	};
+	//$("body").html(productoTpl({nombre: "producto1", imagen:"http://www.google.com/"}));
+	var carrito, ventas;
+		
 	function click_producto(i){
 		console.log("agegado al carro" + i);
 		ventas.agregarAlCarro(i, 1);
@@ -60,14 +85,19 @@
 		
 		$.getJSON( "datos.json", function(datos) {
 			carrito = new Carro();
-			ventas = new Ventas(datos.ProductosVentas, carrito);
-			ventas.productos = new ProductoFactory(datos.ProductosVentas);
-			// los mostramos como HTML ARREGLAR
-			$.each( ventas.productos,function(i, producto){
-				var li = generar_li(producto.nombre, producto.precio, producto.imagen,i);
-	        	$("#lista_productos").append(li);
+			ventas = new Ventas(new ProductoFactory(datos.ProductosVentas), carrito);
+			$("#lista_productos").html(listProductos(ventas.productos));
+		});	
+
+		function listProductos(productos){
+			var html_productos = _.reduce(_.map(productos, function(prod){ 
+				var productoTpl = _.template($("#producto-tpl").html());
+				return productoTpl(prod);
+				}), function(acumulador, currentItem){
+					return acumulador + currentItem;
 			});
-		});
+			return html_productos;
+		}
 });
 	
 
