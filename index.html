@@ -6,7 +6,7 @@
 	<script type="text/javascript" src="estaticos/js/jquery.min.js"></script>
 	<script src="estaticos/js/qunit.js"></script>
 	<link rel="stylesheet" href="estaticos/css/qunit.css">
-    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="estaticos/css/materialize_icons.css" rel="stylesheet">
 	<script type="text/javascript" src="estaticos/js/materialize.min.js"></script>
 	<script src="estaticos/js/utils.js"></script>
 	<link type="text/css" rel="stylesheet" href="estaticos/css/materialize.min.css"  media="screen,projection"/>
@@ -17,12 +17,13 @@
 	<title>Productos</title>
 </head>
 <body>
+
 	<nav class="nav-extended red">
 		<div class="nav-wrapper">
-			<a href="#!" class="brand-logo"><i class="material-icons">cloud</i>Logo</a>
+			<a href="#!" class="brand-logo"><i class="material-icons">cloud</i>Ventas</a>
 			<ul class="right hide-on-med-and-down">
 				<li><a href="sass.html"><i class="material-icons">search</i></a></li>
-				<li><a onclick="Materialize.showStaggeredList('#checkout-div')"><i onclick="checkout()" class="material-icons">shopping_cart</i></a></li>
+				<li><a id="mostrar_carro" href="#modal1"><i  class="material-icons">shopping_cart</i></a></li>
 
 			</ul>
 		</div>
@@ -31,73 +32,154 @@
 	<div class="section no-pad-bot" id="index-banner">
 	    <div class="container">
 	      	<br><br>
-	      	<h1 class="header center orange-text">Productos</h1>	      	
-  		</div>
-  	<div class="container">
-    <div class="section">
-      	<ul id="lista_productos" class="row produktliste">      		
-      	</ul>     	
-    </div>
-  </div>
+	      	<h1 class="header center orange-text">Productos</h1>	
+	    </div>
+	  	<div class="container">
+		    <!-- > /////// Seccopmes /////// <-->
+		    <div id="_ventas" class="secciones" data-ruta="ventas">
+		      	<ul id="productos_ventas" class="row produktliste"></ul>     	
+		    </div>
+		    <div id="_carro" class="secciones"  data-ruta="carro">
+		    	<ul id="productos_carro2" class="row produktliste"></ul>		      	
+		    </div>
+		    
+	 	</div>
+	</div>
 
 	<div id="qunit"></div>
   	<div id="qunit-fixture"></div>
+  	  <!-- Modal Trigger -->
+  <a class="waves-effect waves-light btn" href="#modal1">Modal</a>
+      
+
+  <!-- Modal Trigger -->
+  <a class="modal-trigger waves-effect waves-light btn" href="#modal1">Modal</a>
+
+  <!-- Modal Structure -->
+  <div id="modal1" class="modal modal-fixed-footer">
+    <div class="modal-content">
+	  <h3 class="header center black-text" >Carrito de Compras</h3>
+       <ul class="collection" id="productos_carro"></ul>
+
+    </div>
+    <div class="modal-footer">
+		<button type="button" title="Proceed to Checkout" class="button waves-effect waves-light btn red accent-4  "><span><span>Proceed to Checkout</span></span></button>
+	 </div>
 </body>
 	
 </html>
 
+<script id="producto-carro-tpl" type="text/template">
+{{ _.each(productos, function(producto){  }}
+	<li class="collection-item avatar" id="{{=producto.producto.nombre}}">
+        <img src="{{=producto.producto.imagen}}" class="circle">
+     	<div class="row">
+         	<div class=" col s4">
+         		<span class="title">{{=producto.producto.nombre}}</span>         		
+         		<p>${{=producto.producto.precio}} c/u</p>
+			</div>
+			<div class=" col s4">
+     			<div class="row">
+     				<div class="input-field login-form-text col s6">
+        				<input id="cant_carrito" data-id-prod="{{=producto.producto.id}}" maxlength="12" value="{{=producto.cantidad}}" type="number">				
+        			</div>
+     			</div>
+			</div>
+			<div class=" col s4">
+	        	<span class="title">SubTotal</span>
+	        	<p></p>{{=producto.precioSubTotal}}<br>
+	        	    <span class="new badge green" data-badge-caption="Stock">0</span>
+			</div>
+		</div>
+  		<a  id="sacar_del_carro" class="secondary-content"><i class="material-icons">close</i></a>
+    </li>
+
+{{ }); }}
+</script>
 <script id="producto-tpl" type="text/template">	
+{{ _.each(productos, function(producto){  }}
 	<li class="product-grid-layout animated bounceIn item last col s12 m6 l3 product-item-box">
+
 		<div class="card">
 			<div class="card-image">
-				<img src="{{imagen}}">	
-					<span class="card-title"></span>
-					<a class="btn-floating halfway-fab waves-effect waves-light red"
-						onclick="click_producto({{indice}})"
-					>
-						<i class="material-icons">add</i>		
-					</a>
+				<img src="{{=producto.imagen}}">	
+					<span class="card-title"></span					
 			</div>
-		<div class="card-content">
-		<p>{{nombre}}</p><p> {{precio}}</p>		
+			<div class="card-content">
+				<p>{{=producto.nombre}}</p><p> $ {{=producto.precio}}</p>			
+				<div class="row">
+				 	<div class="input-field col s10">
+						<input  id="cant_pedida_{{=producto.indice}}"  maxlength="12" value="1" type="number">
+						<label for="cant_pedida">Cantidad</label>
+					</div>
+					<div class="col s2">
+						<a class="btn-floating  red" id="add_carro">
+							<i class="material-icons">add</i>		
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>		
 	</li>
+{{ }); }}
 </script>
 
 
 
 <script type="text/javascript">
 	_.templateSettings = {
-	  interpolate: /\{\{(.+?)\}\}/g
+		evaluate:/\{\{(.+?)\}\}/g,
+	  interpolate: /\{\{=(.+?)\}\}/g,
+	  escape: /\{\{-(.+?)\}\}/g
+
 	};
-	//$("body").html(productoTpl({nombre: "producto1", imagen:"http://www.google.com/"}));
-	var carrito, ventas;
-		
-	function click_producto(i){
-		console.log("agegado al carro" + i);
-		ventas.agregarAlCarro(i, 1);
-	}
-
-	function checkout(){
-		console.log(ventas.checkout());
-	}
-
 	$(document).ready(function(){
-		
+
+  		$('.modal').modal();
+  		var carrito, ventas;
 		$.getJSON( "datos.json", function(datos) {
 			carrito = new Carro();
 			ventas = new Ventas(new ProductoFactory(datos.ProductosVentas), carrito);
-			$("#lista_productos").html(listProductos(ventas.productos));
+			var productoTpl = _.template($("#producto-tpl").html());
+			$("#productos_ventas").html(productoTpl({"productos":ventas.productos}));
 		});	
 
 		function listProductos(productos){
+			
 			var html_productos = _.reduce(_.map(productos, function(prod){ 
-				var productoTpl = _.template($("#producto-tpl").html());
 				return productoTpl(prod);
 				}), function(acumulador, currentItem){
 					return acumulador + currentItem;
 			});
 			return html_productos;
 		}
+		function armar_html_carro() {
+			var productoTpl = _.template($("#producto-carro-tpl").html());
+			var html_productos = productoTpl({"productos":carrito.productos}); 
+			$("#productos_carro").html(html_productos);
+			console.log("arm,e");
+		}		
+
+		$(document).on('click', '#mostrar_carro', armar_html_carro);
+
+		$(document).on('click', '#sacar_del_carro', function(e) {
+			carrito.sacarDelCarro($(this).parents('li').index());
+			$(this).parents('li').remove();			
+			
+		});
+		
+		$(document).on('click', '#add_carro', function(e) {
+			var indice_prod = $(this).parents('li').index();
+			var cantidad = Number($("#cant_pedida_"+indice_prod).val());
+			ventas.agregarAlCarro(indice_prod, cantidad);
+		});
+
+		$(document).on('change', '#cant_carrito', function(e) {
+			var id_prod = $(this).data("id-prod");
+			carrito.actualizarCantPorId($(this).data("id-prod"), $(this).val());
+			armar_html_carro();
+		});
+		
 });
 	
 

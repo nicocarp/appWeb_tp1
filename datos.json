@@ -1,42 +1,49 @@
 {"ProductosVentas":
   [
       {
+        "id":1,
         "nombre":"Futbol Nro5",
         "cantidad":10,
         "precio":10,
         "imagen":"estaticos/imagenes/pelotaFutbol5.jpg"
       },
       {
+        "id":2,
         "nombre":"Guantes Boxeo",
         "cantidad":11,
         "precio":11,
         "imagen":"estaticos/imagenes/guantesBoxeo.jpg"
       },
       {
+        "id":3,
         "nombre":"Botines",
         "cantidad":12,
         "precio":12,
         "imagen":"estaticos/imagenes/botines.jpg"
       },
       {
+        "id":4,
         "nombre":"Guantes MMA",
         "cantidad":13,
         "precio":14,
         "imagen":"estaticos/imagenes/guantesMMA.jpg"
       },
       {
+        "id":5,
         "nombre":"Guantes MMA",
         "cantidad":14,
         "precio":14,
         "imagen":"estaticos/imagenes/pelota.jpg"
       },
       {
+        "id":6,
         "nombre":"Bolsa Boxeo",
         "cantidad":15,
         "precio":14,
         "imagen":"estaticos/imagenes/bolsaBoxeo.jpg"
       },
       {
+        "id":7,
         "nombre":"Raqueta Tennis",
         "cantidad":10,
         "precio":10,

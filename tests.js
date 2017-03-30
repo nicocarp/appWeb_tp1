@@ -6,10 +6,14 @@ QUnit.test( "hello test", function( assert ) {
 QUnit.module( "Carro", {
   before: function() {
     
-    var prod1= {"nombre":"Futbol Nro5", 
+    var prod1= {
+          "id":1,
+          "nombre":"Futbol Nro5", 
     			"cantidad":10, "precio":2, 
     			"imagen":"estaticos/imagenes/pelota.jpg"};
-   	var prod2 ={ "nombre":"Futbol Nro4",
+   	var prod2 ={ 
+            "id":2,
+            "nombre":"Futbol Nro4",
         		"cantidad":10, "precio":5,
         		"imagen":"estaticos/imagenes/pelota.jpg"};
 	this.prod1 = prod1;

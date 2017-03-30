@@ -3,7 +3,8 @@ function Carro(){
 	this.calcularTotal = calcularTotal;
 	this.agregarAlCarro = agregarAlCarro;
 	this.sacarDelCarro = sacarDelCarro;
-	
+	this.existeProd  = existeProd;
+	this.actualizarCantPorId = actualizarCantPorId;
 	function calcularTotal(){
 		var total = 0; 
 		for (var i in this.productos){
@@ -13,15 +14,36 @@ function Carro(){
 	}
 	function agregarAlCarro(producto, cantidad){
 		if (cantidad > 0){
-			this.productos.push({
+			var prod_ya_cargado = this.existeProd(producto);
+			if (prod_ya_cargado == undefined){
+				this.productos.push({
 				"producto": producto, 
 				"cantidad": cantidad,
 				"precioSubTotal":producto.precio * cantidad
-			});	
+				});	
+			}else{
+				prod_ya_cargado.cantidad += cantidad
+				prod_ya_cargado.precioSubTotal += cantidad * producto.precio;
+			}
+				
 		}
 	}
 	function sacarDelCarro(indice){
 		this.productos.splice(indice, 1);
+	}
+	function existeProd(prod){
+		return _.find(this.productos, function(producto){
+			return producto.producto.id == prod.id;
+		})
+	}
+	function actualizarCantPorId(id_prod, nueva_cant){
+		var p =_.find(this.productos, function(producto){
+			return producto.producto.id == id_prod;
+		})
+		if (p != undefined){
+			p.precioSubTotal = p.producto.getPrecio(nueva_cant); 
+			p.cantidad = nueva_cant;
+		}
 	}
 }
 
@@ -110,6 +132,11 @@ function Producto(){
 			return false;
 		}
 		return true;
-
+	}
+	this.getPrecio = function(cantidad){
+		if (cantidad > 0){
+			return this.precio * cantidad;
+		}
+		return 0;
 	}
 }
