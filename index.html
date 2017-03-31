@@ -18,42 +18,84 @@
 </head>
 <body>
 
-	<nav class="nav-extended red">
-		<div class="nav-wrapper">
-			<a href="#!" class="brand-logo"><i class="material-icons">cloud</i>Ventas</a>
-			<ul class="right hide-on-med-and-down">
-				<li><a href="sass.html"><i class="material-icons">search</i></a></li>
-				<li><a id="mostrar_carro" href="#modal1"><i  class="material-icons">shopping_cart</i></a></li>
+<!-- NAV  -->
+<nav class="nav-extended red">
+	<div class="nav-wrapper">
+		<a href="#!" class="brand-logo"><i class="material-icons">cloud</i>River Plate</a>
+		<ul class="right hide-on-med-and-down">
+			<li><a href="sass.html"><i class="material-icons">search</i></a></li>
+			<li><a id="mostrar_carro" href="#modal1"><i  class="material-icons">shopping_cart</i></a></li>
 
-			</ul>
-		</div>
-	</nav>
-
-	<div class="section no-pad-bot" id="index-banner">
-	    <div class="container">
-	      	<br><br>
-	      	<h1 class="header center orange-text">Productos</h1>	
-	    </div>
-	  	<div class="container">
-		    <!-- > /////// Seccopmes /////// <-->
-		    <div id="_ventas" class="secciones" data-ruta="ventas">
-		      	<ul id="productos_ventas" class="row produktliste"></ul>     	
-		    </div>
-		    <div id="_carro" class="secciones"  data-ruta="carro">
-		    	<ul id="productos_carro2" class="row produktliste"></ul>		      	
-		    </div>
-		    
-	 	</div>
+		</ul>
 	</div>
+</nav>
+<!-- FIN NAV  -->
+<!-- CONTENEDOR PRINCIPAL  -->
+<div class="section no-pad-bot ">
+    <div class=" z-depth-3" >
+    	<div class="row">
+    		<div class="col s10">
+    			<h2 class="header  black-text">Shoping</h2>
+    		</div>
+    		<div class="col s2">    			
+    				<span class="badge red-text text-accent-4 " id="cant_prod_carro">0</span>
+    				<a id="mostrar_carro" href="#modal1"><i class="material-icons medium red-text rigth">shopping_cart</i></a>    			
+    		</div>
+    	</div>
+      	
+    </div>
+  	<div class="">
+  	<div class="row">
+  		<div class="col s3 z-depth-3">
+  			<div class="block-title center">
+		        <h4>Shop By</h4>
+		    </div>
+		    <div class="divider red"></div>
+  			<ul class="collapsible" data-collapsible="accordion">
+			    <li>
+			      <div class="collapsible-header"><i class="material-icons">search</i>Categorias</div>
+			      <div class="collapsible-body center">			      	
+			      	<p><a class="blue-text" href="">Cat1</a></p>
+			      	<p><a class="blue-text" href="">Cat1</a></p>
+			      	<p><a class="blue-text" href="">Cat1</a></p>
+			      </div>
+			    </li>
+			    <li>
+			      <div class="collapsible-header"><i class="material-icons">place</i>Precio</div>
+			      <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+			    </li>
+			    <li>
+			      <div class="collapsible-header"><i class="material-icons">whatshot</i>En Stock</div>
+			      <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+			    </li>
+
+			  </ul>
+  		</div>
+  		<div class="col s9 z-depth-3" >
+  			<!-- > LISTADO DE PRODUCTOS <-->
+		  	<div class="block-title center">
+		  		<h4 class="header black-text">Mostrando datos</h4>
+		    </div>
+		    <div class="divider red"></div>
+			
+			    <div id="_ventas" class="secciones" data-ruta="ventas">
+			      	<ul id="productos_ventas" class="row produktliste"></ul>     	
+			    </div>
+			    <div id="_carro" class="secciones"  data-ruta="carro">
+			    	<ul id="productos_carro2" class="row produktliste"></ul>		      	
+			    </div>
+			
+		 	<!-- FIN LISTADO PRODUCTOS  -->
+  		</div>
+  	</div>	    
+  	</div>
+</div>
+<!-- Fin contenedor principal  -->
 
 	<div id="qunit"></div>
   	<div id="qunit-fixture"></div>
-  	  <!-- Modal Trigger -->
-  <a class="waves-effect waves-light btn" href="#modal1">Modal</a>
       
 
-  <!-- Modal Trigger -->
-  <a class="modal-trigger waves-effect waves-light btn" href="#modal1">Modal</a>
 
   <!-- Modal Structure -->
   <div id="modal1" class="modal modal-fixed-footer">
@@ -65,6 +107,7 @@
     <div class="modal-footer">
 		<button type="button" title="Proceed to Checkout" class="button waves-effect waves-light btn red accent-4  "><span><span>Proceed to Checkout</span></span></button>
 	 </div>
+	</div>
 </body>
 	
 </html>
@@ -99,25 +142,14 @@
 <script id="producto-tpl" type="text/template">	
 {{ _.each(productos, function(producto){  }}
 	<li class="product-grid-layout animated bounceIn item last col s12 m6 l3 product-item-box">
-
-		<div class="card">
+		<div class="card z-depth-5">
 			<div class="card-image">
 				<img src="{{=producto.imagen}}">	
-					<span class="card-title"></span					
 			</div>
 			<div class="card-content">
 				<p>{{=producto.nombre}}</p><p> $ {{=producto.precio}}</p>			
-				<div class="row">
-				 	<div class="input-field col s10">
-						<input  id="cant_pedida_{{=producto.indice}}"  maxlength="12" value="1" type="number">
-						<label for="cant_pedida">Cantidad</label>
-					</div>
-					<div class="col s2">
-						<a class="btn-floating  red" id="add_carro">
-							<i class="material-icons">add</i>		
-						</a>
-					</div>
-				</div>
+				<input  id="input_cant_pedida_{{=producto.indice}}"  maxlength="12" value="1" type="number">
+				 <button id="btn_add_carro" class="btn waves-effect waves-light red">Buy<i class="material-icons right">shopping_cart</i></button>				
 			</div>
 		</div>		
 	</li>
@@ -137,27 +169,17 @@
 
   		$('.modal').modal();
   		var carrito, ventas;
+  		var productosCarroTpl = _.template($("#producto-carro-tpl").html());
 		$.getJSON( "datos.json", function(datos) {
 			carrito = new Carro();
 			ventas = new Ventas(new ProductoFactory(datos.ProductosVentas), carrito);
 			var productoTpl = _.template($("#producto-tpl").html());
 			$("#productos_ventas").html(productoTpl({"productos":ventas.productos}));
-		});	
+		});
 
-		function listProductos(productos){
-			
-			var html_productos = _.reduce(_.map(productos, function(prod){ 
-				return productoTpl(prod);
-				}), function(acumulador, currentItem){
-					return acumulador + currentItem;
-			});
-			return html_productos;
-		}
 		function armar_html_carro() {
-			var productoTpl = _.template($("#producto-carro-tpl").html());
-			var html_productos = productoTpl({"productos":carrito.productos}); 
+			var html_productos = productosCarroTpl({"productos":carrito.productos}); 
 			$("#productos_carro").html(html_productos);
-			console.log("arm,e");
 		}		
 
 		$(document).on('click', '#mostrar_carro', armar_html_carro);
@@ -165,12 +187,11 @@
 		$(document).on('click', '#sacar_del_carro', function(e) {
 			carrito.sacarDelCarro($(this).parents('li').index());
 			$(this).parents('li').remove();			
-			
 		});
 		
-		$(document).on('click', '#add_carro', function(e) {
+		$(document).on('click', '#btn_add_carro', function(e) {
 			var indice_prod = $(this).parents('li').index();
-			var cantidad = Number($("#cant_pedida_"+indice_prod).val());
+			var cantidad = Number($("#input_cant_pedida_"+indice_prod).val());
 			ventas.agregarAlCarro(indice_prod, cantidad);
 		});
 
