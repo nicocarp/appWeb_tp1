@@ -55,6 +55,18 @@ QUnit.test("testCalcularTotalComplejo", function( assert ) {
 	assert.equal(this.carrito.calcularTotal(), cuenta);    
   });
 
+QUnit.test("getCantProductos", function( assert ) {
+    this.carrito.agregarAlCarro(this.prod1, 1);
+    this.carrito.agregarAlCarro(this.prod2, 2);
+    assert.equal(this.carrito.getCantProductos(), 3);    
+  });
+QUnit.test("getCantProductosComplejo", function( assert ) {
+    this.carrito.agregarAlCarro(this.prod1, 2);
+    this.carrito.agregarAlCarro(this.prod2, 2);
+    this.carrito.sacarDelCarro(0);
+    assert.equal(this.carrito.getCantProductos(), 2);    
+  });
+
 QUnit.module( "Producto", {
   before: function() {
 

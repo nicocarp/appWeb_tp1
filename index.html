@@ -24,27 +24,28 @@
 		<a href="#!" class="brand-logo"><i class="material-icons">cloud</i>River Plate</a>
 		<ul class="right hide-on-med-and-down">
 			<li><a href="sass.html"><i class="material-icons">search</i></a></li>
-			<li><a id="mostrar_carro" href="#modal1"><i  class="material-icons">shopping_cart</i></a></li>
-
+			<li><a id="" href=""><i  class="material-icons">perm_identity</i></a></li>
 		</ul>
 	</div>
 </nav>
 <!-- FIN NAV  -->
 <!-- CONTENEDOR PRINCIPAL  -->
 <div class="section no-pad-bot ">
-    <div class=" z-depth-3" >
-    	<div class="row">
+    
+    	<div class="row z-depth-5">
     		<div class="col s10">
     			<h2 class="header  black-text">Shoping</h2>
     		</div>
-    		<div class="col s2">    			
-    				<span class="badge red-text text-accent-4 " id="cant_prod_carro">0</span>
-    				<a id="mostrar_carro" href="#modal1"><i class="material-icons medium red-text rigth">shopping_cart</i></a>    			
-    		</div>
-    	</div>
-      	
-    </div>
-  	<div class="">
+    		<div class="fixed-action-btn" style="bottom: 45px; right: 24px; top:45px;">
+			    <a id="mostrar_carro" href="#modal_carro" class="btn-floating btn-large red">
+			      <i style="position:relative; left: -5px;" class="material-icons">shopping_cart</i>
+			    </a>
+			    <span class="white-text "style="z-index:3; position:relative; left: -25px;">
+			    	<i id="cantidad_productos_carro"></i>
+			    </span>
+			 </div>
+    	</div>     	
+    
   	<div class="row">
   		<div class="col s3 z-depth-3">
   			<div class="block-title center">
@@ -68,7 +69,6 @@
 			      <div class="collapsible-header"><i class="material-icons">whatshot</i>En Stock</div>
 			      <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
 			    </li>
-
 			  </ul>
   		</div>
   		<div class="col s9 z-depth-3" >
@@ -76,10 +76,13 @@
 		  	<div class="block-title center">
 		  		<h4 class="header black-text">Mostrando datos</h4>
 		    </div>
+		    
+		    
+		    
 		    <div class="divider red"></div>
 			
 			    <div id="_ventas" class="secciones" data-ruta="ventas">
-			      	<ul id="productos_ventas" class="row produktliste"></ul>     	
+			    	<ul id="productos_ventas" class="row produktliste"></ul>     	
 			    </div>
 			    <div id="_carro" class="secciones"  data-ruta="carro">
 			    	<ul id="productos_carro2" class="row produktliste"></ul>		      	
@@ -88,26 +91,40 @@
 		 	<!-- FIN LISTADO PRODUCTOS  -->
   		</div>
   	</div>	    
-  	</div>
 </div>
 <!-- Fin contenedor principal  -->
 
+<!-- Test  -->
 	<div id="qunit"></div>
   	<div id="qunit-fixture"></div>
-      
+<!-- FIN  Test  -->
 
 
-  <!-- Modal Structure -->
-  <div id="modal1" class="modal modal-fixed-footer">
-    <div class="modal-content">
-	  <h3 class="header center black-text" >Carrito de Compras</h3>
-       <ul class="collection" id="productos_carro"></ul>
-
-    </div>
-    <div class="modal-footer">
-		<button type="button" title="Proceed to Checkout" class="button waves-effect waves-light btn red accent-4  "><span><span>Proceed to Checkout</span></span></button>
-	 </div>
+<!-- Modal Carrito -->
+<div id="modal_carro" class="modal modal-fixed-footer">
+	<div class="modal-content">
+		<h3 class="header center black-text" >Carrito de Compras</h3>
+		<ul class="collection" id="productos_carro"></ul>
 	</div>
+	<div class="modal-footer">
+		<div class="row">
+			<div class="col s8" style="font-size:30px;">			
+		        <strong>Total (<strong id="cant_productos_carro"></strong>)</strong>
+		        <strong class="right">$ <strong id="precio_total_carro">12</strong></strong>
+		        
+		    </div>
+			
+			<div class="col s4">
+				<button type="button" class="btn red accent-4">
+					<span>La Cuenta</span>
+				</button>
+			</div>
+			
+		</div>
+		
+	</div>
+</div>
+<!-- FIN Modal Carrito -->
 </body>
 	
 </html>
@@ -117,37 +134,35 @@
 	<li class="collection-item avatar" id="{{=producto.producto.nombre}}">
         <img src="{{=producto.producto.imagen}}" class="circle">
      	<div class="row">
-         	<div class=" col s4">
+         	<div class=" col s5">
          		<span class="title">{{=producto.producto.nombre}}</span>         		
          		<p>${{=producto.producto.precio}} c/u</p>
 			</div>
-			<div class=" col s4">
-     			<div class="row">
-     				<div class="input-field login-form-text col s6">
-        				<input id="cant_carrito" data-id-prod="{{=producto.producto.id}}" maxlength="12" value="{{=producto.cantidad}}" type="number">				
-        			</div>
-     			</div>
+			<div class=" col s3">
+     			<input id="cant_carrito" data-id-prod="{{=producto.producto.id}}" maxlength="12" value="{{=producto.cantidad}}" type="number">        		
 			</div>
 			<div class=" col s4">
-	        	<span class="title">SubTotal</span>
-	        	<p></p>{{=producto.precioSubTotal}}<br>
+				<br>
+	        	
+	        	<span class="new badge green" data-badge-caption="Stock">{{=producto.precioSubTotal}}</span>
+	        	<br>
 	        	    <span class="new badge green" data-badge-caption="Stock">0</span>
 			</div>
 		</div>
   		<a  id="sacar_del_carro" class="secondary-content"><i class="material-icons">close</i></a>
     </li>
-
 {{ }); }}
 </script>
 <script id="producto-tpl" type="text/template">	
 {{ _.each(productos, function(producto){  }}
 	<li class="product-grid-layout animated bounceIn item last col s12 m6 l3 product-item-box">
 		<div class="card z-depth-5">
+		<a href="#" class="btn-floating btn-large btn-price waves-effect waves-light  right black accent-2">$ {{=producto.precio}}</a>
 			<div class="card-image">
 				<img src="{{=producto.imagen}}">	
 			</div>
 			<div class="card-content">
-				<p>{{=producto.nombre}}</p><p> $ {{=producto.precio}}</p>			
+				<p>{{=producto.nombre}}</p>
 				<input  id="input_cant_pedida_{{=producto.indice}}"  maxlength="12" value="1" type="number">
 				 <button id="btn_add_carro" class="btn waves-effect waves-light red">Buy<i class="material-icons right">shopping_cart</i></button>				
 			</div>
@@ -155,9 +170,6 @@
 	</li>
 {{ }); }}
 </script>
-
-
-
 <script type="text/javascript">
 	_.templateSettings = {
 		evaluate:/\{\{(.+?)\}\}/g,
@@ -177,9 +189,15 @@
 			$("#productos_ventas").html(productoTpl({"productos":ventas.productos}));
 		});
 
+		function actualizar_numeros_carro(){			
+			$("#cant_productos_carro").html(carrito.getCantProductos());
+			$("#precio_total_carro").html(carrito.calcularTotal());
+			$("#cantidad_productos_carro").html(carrito.getCantProductos());
+		}
 		function armar_html_carro() {
 			var html_productos = productosCarroTpl({"productos":carrito.productos}); 
-			$("#productos_carro").html(html_productos);
+			$("#productos_carro").html(html_productos);			
+			actualizar_numeros_carro();
 		}		
 
 		$(document).on('click', '#mostrar_carro', armar_html_carro);
@@ -187,12 +205,14 @@
 		$(document).on('click', '#sacar_del_carro', function(e) {
 			carrito.sacarDelCarro($(this).parents('li').index());
 			$(this).parents('li').remove();			
+			actualizar_numeros_carro();
 		});
 		
 		$(document).on('click', '#btn_add_carro', function(e) {
 			var indice_prod = $(this).parents('li').index();
 			var cantidad = Number($("#input_cant_pedida_"+indice_prod).val());
 			ventas.agregarAlCarro(indice_prod, cantidad);
+			actualizar_numeros_carro();		
 		});
 
 		$(document).on('change', '#cant_carrito', function(e) {

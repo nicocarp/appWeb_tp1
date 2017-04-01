@@ -5,6 +5,7 @@ function Carro(){
 	this.sacarDelCarro = sacarDelCarro;
 	this.existeProd  = existeProd;
 	this.actualizarCantPorId = actualizarCantPorId;
+	this.getCantProductos = getCantProductos;
 	function calcularTotal(){
 		var total = 0; 
 		for (var i in this.productos){
@@ -24,8 +25,7 @@ function Carro(){
 			}else{
 				prod_ya_cargado.cantidad += cantidad
 				prod_ya_cargado.precioSubTotal += cantidad * producto.precio;
-			}
-				
+			}				
 		}
 	}
 	function sacarDelCarro(indice){
@@ -44,6 +44,13 @@ function Carro(){
 			p.precioSubTotal = p.producto.getPrecio(nueva_cant); 
 			p.cantidad = nueva_cant;
 		}
+	}
+	function getCantProductos(){
+		var cont_prod=0;
+		_.each(this.productos, function(producto){
+			cont_prod += producto.cantidad;
+		});
+		return cont_prod;
 	}
 }
 
@@ -75,11 +82,13 @@ function Ventas(productos, carro){
 		return this.carro.calcularTotal();
 	}
 }
-function Promocion(productos){
-	this.combos = []
+function FactoryPromocion(productos){
+	this.promociones = []
 	this.generarPromociones = function(productos){
 		// usar numeros random		
 		// para producto 0 comprando 1 unidad hay un descuento del 20%
+		// prod puede pertenecer a solo un combo
+		this.promociones.push(new Promocion());
 		combos.push({"productos": [productos[0]], "cantidad":1, "descuento":20 });
 		combos.push({"productos": [productos[1]], "cantidad":2, "descuento":10 });
 		combos.push({"productos": [productos[1],productos[2],productos[3] ], "cantidad":1, "descuento":20 })
@@ -92,6 +101,10 @@ function Promocion(productos){
 	}
 }
 
+function Promocion(){
+
+
+}
 function ProductoFactory(productos_json){
 	var atributos_producto;
 	var productos = [];
@@ -108,6 +121,8 @@ function ProductoFactory(productos_json){
 }
 
 function Producto(){
+
+	this.descuentos = [];
 	this.devolverNombre = function(){
 				return this.nombre;
 	}
@@ -133,9 +148,10 @@ function Producto(){
 		}
 		return true;
 	}
-	this.getPrecio = function(cantidad){
+	this.getPrecio = function(cantidad, descuentos){
 		if (cantidad > 0){
-			return this.precio * cantidad;
+			var monto = this.precio * cantidad;
+			return _.reduce(this.descuentos, function(acu, des) { return des(acum)}, monto)
 		}
 		return 0;
 	}
