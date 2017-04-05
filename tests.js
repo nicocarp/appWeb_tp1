@@ -21,13 +21,14 @@ QUnit.module( "Carro", {
   },
     beforeEach: function() {
     this.carrito = new Carro();
+
   }
 });
 
 QUnit.test("testAgregarAlCarro", function( assert ) {
     this.carrito.agregarAlCarro(this.prod1, 1);
     this.carrito.agregarAlCarro(this.prod2, 1);
-	assert.equal(this.carrito.productos.length, 2);    
+	 assert.equal(this.carrito.productos.length, 2);    
   });
 QUnit.test("testSacarDelCarro", function( assert ) {
     this.carrito.agregarAlCarro(this.prod1, 1);
@@ -97,4 +98,38 @@ QUnit.test("testDisminuirStockNegativo", function( assert ) {
   this.prod.cantidad = 10;
   this.prod.disminuirStock(12);
   assert.equal(this.prod.cantidad, 10);    
+});
+
+
+// D E S C U E N T O S
+QUnit.module( "Descuento", {
+  before: function() {
+
+  },
+    beforeEach: function() {
+    
+  }
+});
+QUnit.test("testFuncionDescuentaCorrectamente", function( assert ) {
+  this.descuento = new Descuento(10);
+  assert.equal(this.descuento(800), 80);    
+});
+QUnit.test("testFuncionDescuentaCorrectamenteNumerosReales", function( assert ) {
+  // ESte descuento da un resultado muy aproximado por lo que es valido para nuestro dominio
+  this.descuento = new Descuento(10);
+  assert.notEqual(this.descuento(123.54), 12.354);    
+});
+
+// P R O M O C I O N E S
+QUnit.module( "Promocion", {
+  before: function() {
+
+  },
+    beforeEach: function() {
+    
+  }
+});
+QUnit.test("testGenerandoPromociones", function( assert ) {
+  this.promociones = new PromocionManager([1,2,3,4,5]);
+  assert.equal(this.promociones.promociones.length, 3);    
 });

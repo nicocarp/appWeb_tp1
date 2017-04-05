@@ -1,0 +1,61 @@
+.product-offprice-ribbon {
+    background-image: url(../imagenes/promocion.jpg);
+    width: 65px;
+    height: 64px;
+    position: absolute;
+    font-family: "oswald";
+    margin-right: 15px;
+    padding: 4px 7px;
+    color: #FFF;
+    text-align: center;
+    line-height: 1.5;
+    z-index:3;
+}
+.price {
+    font-size: 15px;
+    font-family: "oswald", sans-serif;
+    color: #d50000;
+    margin: 0px;
+}
+
+.item-inner {
+    position: relative;
+    margin-bottom: 20px;
+}
+.box-total {
+    width: 84px;
+    position: absolute;
+    right: 0px;
+    font-family: "oswald";
+    margin-top: 15px;
+    margin-right: 15px;
+    z-index: 5;
+}
+.old-price {
+    margin: 0px;
+}
+.price-label {
+    display: none;
+}
+.old-price .price {
+    font-size: 12px;
+    font-family: "oswald", sans-serif;
+    color: #000;
+    text-decoration: line-through;
+}
+.special-price {
+    margin: 0px;
+}
+.combo-info {
+    background-image: url(../imagenes/combo_info.png);
+    width: 65px;
+    height: 64px;
+    position: absolute;
+    font-family: "oswald";
+    margin-right: 15px;
+    padding: 4px 7px;
+    color: #FFF;
+    text-align: center;
+    line-height: 1.5;
+    z-index:3;
+}

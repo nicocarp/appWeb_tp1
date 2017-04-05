@@ -3,16 +3,11 @@
 <head lang="es">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	
-	<script type="text/javascript" src="estaticos/js/jquery.min.js"></script>
-	<script src="estaticos/js/qunit.js"></script>
+	
 	<link rel="stylesheet" href="estaticos/css/qunit.css">
     <link href="estaticos/css/materialize_icons.css" rel="stylesheet">
-	<script type="text/javascript" src="estaticos/js/materialize.min.js"></script>
-	<script src="estaticos/js/utils.js"></script>
+    <link href="estaticos/css/utils.css" rel="stylesheet">
 	<link type="text/css" rel="stylesheet" href="estaticos/css/materialize.min.css"  media="screen,projection"/>
-	<script src="tests.js"></script>
-	<script src="Ventas.js"></script>
-	<script type="text/javascript" src="estaticos/js/underscore.js"></script>
 	
 	<title>Productos</title>
 </head>
@@ -30,21 +25,26 @@
 </nav>
 <!-- FIN NAV  -->
 <!-- CONTENEDOR PRINCIPAL  -->
-<div class="section no-pad-bot ">
-    
-    	<div class="row z-depth-5">
-    		<div class="col s10">
-    			<h2 class="header  black-text">Shoping</h2>
-    		</div>
-    		<div class="fixed-action-btn" style="bottom: 45px; right: 24px; top:45px;">
-			    <a id="mostrar_carro" href="#modal_carro" class="btn-floating btn-large red">
-			      <i style="position:relative; left: -5px;" class="material-icons">shopping_cart</i>
-			    </a>
-			    <span class="white-text "style="z-index:3; position:relative; left: -25px;">
-			    	<i id="cantidad_productos_carro"></i>
-			    </span>
-			 </div>
-    	</div>     	
+<div class="section no-pad-bot ">    	
+    	<div class="row title-heading">    		
+	 		<div class="col s12 red accent-4">
+					<h3 class="center oswald uppercase white-text"> Shopping</h3>
+			</div>
+  		</div>
+
+    		
+    	
+
+<!-- Boton flotante carrito-->
+<div class="fixed-action-btn" style="bottom: 45px; right: 24px; top:45px;">
+	    <a id="mostrar_carro" href="#modal_carro" class="btn-floating btn-large red">
+	      <i style="position:relative; left: -5px;" class="material-icons">shopping_cart</i>
+	    </a>
+	    <span class="white-text "style="z-index:3; position:relative; left: -25px;">
+	    	<i id="cantidad_productos_carro"></i>
+	    </span>
+</div>     	
+<!-- Fin boton flotante carrito-->
     
   	<div class="row">
   		<div class="col s3 z-depth-3">
@@ -56,9 +56,9 @@
 			    <li>
 			      <div class="collapsible-header"><i class="material-icons">search</i>Categorias</div>
 			      <div class="collapsible-body center">			      	
-			      	<p><a class="blue-text" href="">Cat1</a></p>
-			      	<p><a class="blue-text" href="">Cat1</a></p>
-			      	<p><a class="blue-text" href="">Cat1</a></p>
+			      	<p><a class="blue-text" href="">Categoria 1</a></p>
+			      	<p><a class="blue-text" href="">Categoria 1<Cat1</a></p>
+			      	<p><a class="blue-text" href="">Categoria 1</a></p>
 			      </div>
 			    </li>
 			    <li>
@@ -75,19 +75,15 @@
   			<!-- > LISTADO DE PRODUCTOS <-->
 		  	<div class="block-title center">
 		  		<h4 class="header black-text">Mostrando datos</h4>
-		    </div>
-		    
-		    
-		    
-		    <div class="divider red"></div>
-			
+		    </div>		    
+		    <div class="divider red"></div>			
 			    <div id="_ventas" class="secciones" data-ruta="ventas">
 			    	<ul id="productos_ventas" class="row produktliste"></ul>     	
 			    </div>
 			    <div id="_carro" class="secciones"  data-ruta="carro">
-			    	<ul id="productos_carro2" class="row produktliste"></ul>		      	
-			    </div>
-			
+			    	<ul id="productos_carro2" class="">
+			    			</ul>		      	
+			    </div>			
 		 	<!-- FIN LISTADO PRODUCTOS  -->
   		</div>
   	</div>	    
@@ -126,7 +122,13 @@
 </div>
 <!-- FIN Modal Carrito -->
 </body>
-	
+	<script type="text/javascript" src="estaticos/js/jquery.min.js"></script>
+	<script src="estaticos/js/qunit.js"></script>
+	<script type="text/javascript" src="estaticos/js/materialize.min.js"></script>
+	<script src="estaticos/js/utils.js"></script>
+	<script src="tests.js"></script>
+	<script src="Ventas.js"></script>
+	<script type="text/javascript" src="estaticos/js/underscore.js"></script>
 </html>
 
 <script id="producto-carro-tpl" type="text/template">
@@ -142,8 +144,7 @@
      			<input id="cant_carrito" data-id-prod="{{=producto.producto.id}}" maxlength="12" value="{{=producto.cantidad}}" type="number">        		
 			</div>
 			<div class=" col s4">
-				<br>
-	        	
+				<br>	        	
 	        	<span class="new badge green" data-badge-caption="Stock">{{=producto.precioSubTotal}}</span>
 	        	<br>
 	        	    <span class="new badge green" data-badge-caption="Stock">0</span>
@@ -155,21 +156,63 @@
 </script>
 <script id="producto-tpl" type="text/template">	
 {{ _.each(productos, function(producto){  }}
-	<li class="product-grid-layout animated bounceIn item last col s12 m6 l3 product-item-box">
-		<div class="card z-depth-5">
-		<a href="#" class="btn-floating btn-large btn-price waves-effect waves-light  right black accent-2">$ {{=producto.precio}}</a>
+	<li class="col s12 m6 l3">
+		<div class="card z-depth-5" style="position: relative;margin-bottom: 20px;">
+		{{var precioDesc = precio = porcDesc = "";}}
+		{{ var hay_promo = _.findWhere(promociones, {"id_prod":producto.id}); }}
+		{{ if ( hay_promo != undefined) { 	}}
+			{{precioDesc = producto.getPrecioUnitario(hay_promo.promocion.getDescuento());}}
+			{{precio = producto.precio;}}
+			{{porcDesc = hay_promo.promocion.getDescuento().porcentajeDescuento;}}
+
+			{{ if ( hay_promo.promocion.getTipo() == "descuento") { 	}}
+				<div class="product-offprice-ribbon ">
+					Off <br> 
+					-{{=hay_promo.promocion.getDescuento().porcentajeDescuento}}%
+				</div>
+				<p class="old-price right">
+	                <span class="price">
+	                   ${{=producto.precio}}</span>
+	            </p>
+	            <br>
+				<p class="special-price right">
+		        	<span class="price" >
+		            $ {{=producto.getPrecioUnitario(hay_promo.promocion.getDescuento())}}</span>
+		        </p>
+		    {{ }else if (hay_promo.promocion.getTipo() == "combo"){  }}
+		    	
+		         <a id="" href=""><i class="material-icons medium amber-text lighten-2-text">error_outline</i></a>
+		         <p class="special-price right">
+		        	<span class="price" >
+		            $ {{=producto.precio}}</span>
+		        </p>
+	         <br>
+		    {{ } }} 	
+		       
+		{{ } else{ }}	
+			<p class="special-price right">
+		        	<span class="price" >
+		            $ {{=producto.precio}}</span>
+		        </p>
+	         <br>		   
+		{{  }; }}
 			<div class="card-image">
 				<img src="{{=producto.imagen}}">	
 			</div>
-			<div class="card-content">
-				<p>{{=producto.nombre}}</p>
-				<input  id="input_cant_pedida_{{=producto.indice}}"  maxlength="12" value="1" type="number">
-				 <button id="btn_add_carro" class="btn waves-effect waves-light red">Buy<i class="material-icons right">shopping_cart</i></button>				
+			<div class="card-content">				
+				<p class="center">{{=producto.nombre}}</p>
+				<div class="row">
+					<input  id="input_cant_pedida_{{=producto.indice}}"  maxlength="12" value="1" type="number">
+					 <button id="btn_add_carro" class="btn waves-effect waves-light red">Buy<i class="material-icons right">shopping_cart</i></button>
+				</div>				 
 			</div>
 		</div>		
 	</li>
 {{ }); }}
 </script>
+        
+
+
 <script type="text/javascript">
 	_.templateSettings = {
 		evaluate:/\{\{(.+?)\}\}/g,
@@ -178,16 +221,35 @@
 
 	};
 	$(document).ready(function(){
-
+		    $('.tooltipped').tooltip({delay: 50});
+  
+		  $('.carousel.carousel-slider').carousel({fullWidth: true});
   		$('.modal').modal();
   		var carrito, ventas;
   		var productosCarroTpl = _.template($("#producto-carro-tpl").html());
+		
 		$.getJSON( "datos.json", function(datos) {
 			carrito = new Carro();
 			ventas = new Ventas(new ProductoFactory(datos.ProductosVentas), carrito);
-			var productoTpl = _.template($("#producto-tpl").html());
-			$("#productos_ventas").html(productoTpl({"productos":ventas.productos}));
+			/*var productoTpl = _.template($("#producto-tpl").html());
+			$("#productos_ventas").html(productoTpl(
+				{"productos":ventas.getProductos()}));
+			*/
+			armar_html_productos_en_ventas();
 		});
+
+		function armar_html_productos_en_ventas(){
+			var productos = ventas.getProductos();
+			//getIdsEnPromo es una funcion que devuelve un dict para facilitar la muestra de mjes
+			var promociones = ventas.getIdsEnPromo();
+			var productoTpl = _.template($("#producto-tpl").html());
+			console.log("PROMOCIONES");
+			console.log(promociones);
+			$("#productos_ventas").html(productoTpl(
+				{"productos":productos,
+				"promociones": promociones
+			}));
+		}
 
 		function actualizar_numeros_carro(){			
 			$("#cant_productos_carro").html(carrito.getCantProductos());
@@ -197,7 +259,7 @@
 		function armar_html_carro() {
 			var html_productos = productosCarroTpl({"productos":carrito.productos}); 
 			$("#productos_carro").html(html_productos);			
-			actualizar_numeros_carro();
+			actualizar_numeros_carro();			
 		}		
 
 		$(document).on('click', '#mostrar_carro', armar_html_carro);
@@ -217,10 +279,13 @@
 
 		$(document).on('change', '#cant_carrito', function(e) {
 			var id_prod = $(this).data("id-prod");
-			carrito.actualizarCantPorId($(this).data("id-prod"), $(this).val());
+			carrito.actualizarCantPorId($(this).data("id-prod"), Number($(this).val()));
 			armar_html_carro();
 		});
 		
+
+		
+
 });
 	
 
