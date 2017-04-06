@@ -51,7 +51,6 @@ function Carro(){
 		if (p != undefined){
 			p.precioSubTotal = p.producto.getPrecio(nueva_cant); 
 			p.cantidad = nueva_cant;
-			console.log("nbeva cantidad"+nueva_cant);
 			this.promociones.buscarPromosEnCarrito(this.productos);
 		}
 	}
@@ -76,12 +75,27 @@ function Ventas(productos, carro){
 	this.getProductos = getProductos;
 	this.carro.setPromociones(this.promociones);
 	this.getIdsEnPromo = getIdsEnPromo;
+	this.actualizarCantPorIdEnCarro = actualizarCantPorIdEnCarro;
 	
 	function seleccionProducto(indice){
 		return this.productos[indice];
 	}
-	function agregarAlCarro(i_prod, cantidad){
-		this.carro.agregarAlCarro(this.productos[i_prod], cantidad);
+	function agregarAlCarro(i_prod, acum, cantidad){
+		if (this.productos[i_prod].alcanzaStock(acum)){
+			this.carro.agregarAlCarro(this.productos[i_prod], cantidad);	
+			return "ok";
+		}else{
+			return "Cantidad no disponible";
+		}		
+	}
+	function actualizarCantPorIdEnCarro(id_prod, cantidad){
+		var prod = _.find(this.productos, function(p){return p.id == id_prod;});
+		if (prod.alcanzaStock(cantidad)){
+			this.carro.actualizarCantPorId(id_prod, cantidad);	
+			return 'ok';
+		}
+		return 'Cantidad no Disponible';
+
 	}
 	function promociones(){
 		console.log("No Manejamos promociones D: !!!");
@@ -224,8 +238,6 @@ function Promocion(){
 		return this.descuento.porcentajeDescuento;
 	}
 	this.getTipo = function(){
-		console.log("devolviendo getTipoPromo");
-		console.log(this.tipoPromocion);
 		return this.tipoPromocion;
 	}
 }
@@ -279,10 +291,7 @@ function Producto(){
 	},
 	
 	this.alcanzaStock = function(cantidad_pedida){
-		if (cantidad_pedida > this.cantidad){
-			return false;
-		}
-		return true;
+		return this.cantidad >= cantidad_pedida ;
 	}
 	this.getPrecio = function(cantidad, descuentos){
 		if (cantidad > 0){
@@ -323,7 +332,6 @@ function Descuento(porcentajeDescuento){
 	
 	function aplicarDescuento(precio){
 		var result = precio - (precio * porcentajeDescuento) / 100;
-		console.log("en aplicarDescuento: por retornar:_ "+result);
 			return result;
 	};
 	
