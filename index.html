@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head lang="es">
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	
-	
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />	
 	<link rel="stylesheet" href="estaticos/css/qunit.css">
     <link href="estaticos/css/materialize_icons.css" rel="stylesheet">
     <link href="estaticos/css/utils.css" rel="stylesheet">
 	<link type="text/css" rel="stylesheet" href="estaticos/css/materialize.min.css"  media="screen,projection"/>
-	
+	<link href="estaticos/css/nouislider.min.css" rel="stylesheet">	
 	<title>Productos</title>
 </head>
 <body>
@@ -50,26 +48,34 @@
   			<div class="block-title center">
 		        <h4>Shop By</h4>
 		    </div>
-		    <div class="divider red"></div>
-  			<ul class="collapsible" data-collapsible="accordion">
-			    <li>
-			      <div class="collapsible-header"><i class="material-icons">search</i>Categorias</div>
-			      <div class="collapsible-body center">			      	
-			      	<p><a class="blue-text" href="">Categoria 1</a></p>
-			      	<p><a class="blue-text" href="">Categoria 1<Cat1</a></p>
-			      	<p><a class="blue-text" href="">Categoria 1</a></p>
-			      </div>
-			    </li>
-			    <li>
-			      <div class="collapsible-header"><i class="material-icons">place</i>Precio</div>
-			      <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-			    </li>
-			    <li>
-			      <div class="collapsible-header"><i class="material-icons">whatshot</i>En Stock</div>
-			      <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-			    </li>
-			  </ul>
-  		</div>
+			<div class="divider red"></div>
+			<div class="container">					  
+				<div class="row">
+					<div class="input-field">
+						<input id="filtro-nombre" value="" type="text" class="validate">
+						<label for="filtro-nombre">Nombre</label>
+					</div>
+				</div>
+			
+			<div class="row">
+				<div class="input-field ">
+					<select id="filtro-select-categorias">
+						<option value=""  selected></option>
+					</select>
+					<label>Categoria</label>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="input field ">
+					<input type="checkbox" id="filtro-en-stock" />
+					<label for="filtro-en-stock">En Stock</label>
+				</div>
+			</div>
+			</div>
+
+			</div>
+
   		<div class="col s9 z-depth-3" >
   			<!-- > LISTADO DE PRODUCTOS <-->
 		  	<div class="block-title center">
@@ -89,9 +95,10 @@
 </div>
 <!-- Fin contenedor principal  -->
 
-<!-- Test  -->
+<!-- Test  
 	<div id="qunit"></div>
   	<div id="qunit-fixture"></div>
+  -->
 <!-- FIN  Test  -->
 
 
@@ -128,7 +135,15 @@
 	<script src="tests.js"></script>
 	<script src="Ventas.js"></script>
 	<script type="text/javascript" src="estaticos/js/underscore.js"></script>
+	<script src="estaticos/js/nouislider.min.js"></script>
 </html>
+
+<script id = "categorias-filtro-tpl" type="text/template">
+	{{ _.each(categorias, function(categoria){ }}
+		<p><a class="red-text" id="categoria-filtro" data-id-categoria="{{=categoria.id}}">{{=categoria.nombre}}</a></p>
+	{{	}) }}
+	
+</script>
 
 <script id="producto-carro-tpl" type="text/template">
 {{ _.each(productos, function(producto){  }}
@@ -155,7 +170,7 @@
 </script>
 <script id="producto-tpl" type="text/template">	
 {{ _.each(productos, function(producto){  }}
-	<li class="col s12 m6 l3" data-cant-en-carro="0">
+	<li class="col s12 m6 l3" data-cant-en-carro="0" data-prod-id="{{=producto.id}}">
 		<div class="card z-depth-5" style="position: relative;margin-bottom: 20px;">
 		{{ var hay_promo = _.findWhere(promociones, {"id_prod":producto.id}); }}
 		{{ if ( hay_promo != undefined) { 	}}
@@ -196,7 +211,7 @@
 			<div class="card-content">				
 				<p class="center">{{=producto.nombre}}</p>
 				<div class="row">
-					<input  id="input_cant_pedida_{{=producto.indice}}"  maxlength="12" value="1" type="number">
+					<input  id="input_cant_pedida_{{=producto.id}}"  maxlength="12" value="1" type="number">
 					 <button id="btn_add_carro" class="btn waves-effect waves-light red">Buy<i class="material-icons right">shopping_cart</i></button>
 				</div>				 
 			</div>
@@ -215,6 +230,10 @@
 
 	};
 	$(document).ready(function(){
+$(document).ready(function() {
+    $('select').material_select();
+  });
+
 		    $('.tooltipped').tooltip({delay: 50});
   	  Materialize.toast('I am a toast!', 4000) // 4000 is the duration of the toast
 		  $('.carousel.carousel-slider').carousel({fullWidth: true});
@@ -223,22 +242,29 @@
   		var productosCarroTpl = _.template($("#producto-carro-tpl").html());
 		
 		$.getJSON( "datos.json", function(datos) {
+			console.log(datos);
 			carrito = new Carro();
 			ventas = new Ventas(new ProductoFactory(datos.ProductosVentas), carrito);
-			/*var productoTpl = _.template($("#producto-tpl").html());
-			$("#productos_ventas").html(productoTpl(
-				{"productos":ventas.getProductos()}));
-			*/
-			armar_html_productos_en_ventas();
+			armar_html_productos_en_ventas(ventas.productos);
+			armar_html_categorias(datos.categorias);
 		});
 
-		function armar_html_productos_en_ventas(){
-			var productos = ventas.getProductos();
+		function armar_html_categorias(categorias){
+			//var categoria_tpl = _.template($("#categorias-filtro-tpl").html());
+			//$("#lista-categorias").html(categoria_tpl({"categorias":categorias}));
+			_.each(categorias, function(categoria){
+				$('#filtro-select-categorias').append($('<option>', {
+				    value: Number(categoria.id),
+				    text: String(categoria.nombre)
+				}));	
+			})
+			
+
+		}
+		function armar_html_productos_en_ventas(productos){
 			//getIdsEnPromo es una funcion que devuelve un dict para facilitar la muestra de mjes
 			var promociones = ventas.getIdsEnPromo();
 			var productoTpl = _.template($("#producto-tpl").html());
-			console.log("PROMOCIONES");
-			console.log(promociones);
 			$("#productos_ventas").html(productoTpl(
 				{"productos":productos,
 				"promociones": promociones
@@ -266,11 +292,11 @@
 		
 		$(document).on('click', '#btn_add_carro', function(e) {
 			var li = $(this).parents('li');
-			var indice_prod = li.index();
-			var cantidad = Number($("#input_cant_pedida_"+indice_prod).val());
+			var prod_id = li.data("prodId");
+			var cantidad = Number($("#input_cant_pedida_"+prod_id).val());
 			var cant_en_carro = Number(li.data("cantEnCarro"));
 			var acum= cantidad + cant_en_carro;
-			var result = ventas.agregarAlCarro(indice_prod, acum, cantidad);
+			var result = ventas.agregarAlCarro(prod_id, acum, cantidad);
 			if ( result == 'ok'){
 				actualizar_numeros_carro();
 				li.data("cantEnCarro", acum);
@@ -279,10 +305,29 @@
 			}
 			
 		});
+		function filtrado_productos(){
+			var buscar_por_categoria  = $( "#filtro-select-categorias" ).val();
+			var buscar_por_stock =  $("#filtro-en-stock").prop('checked')
+			var buscar_por_nombre = $("#filtro-nombre").val();
+
+			var filtros = {
+				"categoria": buscar_por_categoria,
+				"stock": buscar_por_stock,
+				"nombre":buscar_por_nombre
+			};
+			var productos = ventas.getProductosPorFiltro(filtros);
+			armar_html_productos_en_ventas(productos);
+
+		}	
+
+		/* Eventos de filtro */
+		$(document).on('change', '#filtro-select-categorias', filtrado_productos);
+		$(document).on('click', '#filtro-en-stock', filtrado_productos);
+		$(document).on('change', '#filtro-nombre', filtrado_productos);
 
 		$(document).on('change', '#cant_carrito', function(e) {
 			var id_prod = $(this).data("id-prod");
-			var result = ventas.actualizarCantPorIdEnCarro($(this).data("id-prod"), Number($(this).val()));
+			var result = ventas.actualizarCantEnCarro($(this).data("id-prod"), Number($(this).val()));
 			if (result == 'ok'){
 				armar_html_carro();	
 			}else{
