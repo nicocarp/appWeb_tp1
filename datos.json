@@ -2,52 +2,97 @@
   [
       {
         "id":1,
-        "nombre":"Futbol Nro5",
+        "nombre":"Pelota River Plate",
         "cantidad":10,
         "precio":10,
-        "imagen":"estaticos/imagenes/pelotaFutbol5.jpg"
+        "categoria":8,
+        "imagen":"estaticos/imagenes/pelota_carp_1.jpg"
       },
       {
         "id":2,
-        "nombre":"Guantes Boxeo",
-        "cantidad":11,
-        "precio":11,
-        "imagen":"estaticos/imagenes/guantesBoxeo.jpg"
-      },
-      {
-        "id":3,
         "nombre":"Botines",
-        "cantidad":12,
-        "precio":12,
+        "cantidad":11,
+        "categoria":3,
+        "precio":11,
         "imagen":"estaticos/imagenes/botines.jpg"
       },
       {
+        "id":3,
+        "nombre":"Buzo River Plate 2016",
+        "cantidad":12,
+        "categoria":2,
+        "precio":12,
+        "imagen":"estaticos/imagenes/buzo_carp_1.jpg"
+      },
+      {
         "id":4,
-        "nombre":"Guantes MMA",
+        "nombre":"Camiseta River Plate Suplente 2016",
         "cantidad":13,
+        "categoria":1,
         "precio":14,
-        "imagen":"estaticos/imagenes/guantesMMA.jpg"
+        "imagen":"estaticos/imagenes/camiseta_carp_1.jpg"
       },
       {
         "id":5,
-        "nombre":"Guantes MMA",
-        "cantidad":14,
+        "nombre":"Buzo River Plate Training",
+        "cantidad":0,
+        "categoria":2,
         "precio":14,
-        "imagen":"estaticos/imagenes/pelota.jpg"
+        "imagen":"estaticos/imagenes/buzo_carp_2.jpg"
       },
       {
         "id":6,
-        "nombre":"Bolsa Boxeo",
+        "nombre":"Buzo River Plate 2015",
         "cantidad":15,
+        "categoria":2,
         "precio":14,
-        "imagen":"estaticos/imagenes/bolsaBoxeo.jpg"
+        "imagen":"estaticos/imagenes/buzo_carp_3.jpg"
       },
       {
         "id":7,
-        "nombre":"Raqueta Tennis",
+        "nombre":"Camiseta River Plate 2015",
         "cantidad":10,
+        "categoria":1,
         "precio":10,
-        "imagen":"estaticos/imagenes/tennis.jpeg"
+        "imagen":"estaticos/imagenes/camiseta_carp_2.jpg"
+      },
+      {
+        "id":8,
+        "nombre":"Short River Plate",
+        "cantidad":10,
+        "categoria":4,
+        "precio":10,
+        "imagen":"estaticos/imagenes/short_carp.jpg"
+      },
+      {
+        "id":9,
+        "nombre":"Campera River Plate",
+        "cantidad":10,
+        "categoria":3,
+        "precio":10,
+        "imagen":"estaticos/imagenes/campera_carp_1.jpg"
+      }
+      ,
+      {
+        "id":10,
+        "nombre":"Campera River Plate 2016",
+        "cantidad":10,
+        "categoria":3,
+        "precio":10,
+        "imagen":"estaticos/imagenes/campera_carp_2.jpg"
       }   
+  ], 
+  "categorias":
+  [
+    {"id":1, "nombre":"Camisetas"},
+    {"id":2, "nombre":"Buzos"},
+    {"id":3, "nombre":"Camperas"},
+    {"id":4, "nombre":"Shorts"},
+    {"id":5, "nombre":"Chombas"},
+    {"id":6, "nombre": "Remeras"},
+    {"id":7, "nombre": "Musculosas"},
+    {"id":8, "nombre": "Pelotas"},
+    {"id": 9, "nombre": "Botines"},
+    {"id":10 , "nombre":"Pantalones"}
   ]
 }
