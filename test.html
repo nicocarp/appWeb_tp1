@@ -1,0 +1,23 @@
+<html>
+	<head>
+		</head>
+	<body>
+		<h1 id="producto-3" data-producto-id="3" data-producto-nombre="hola">Producto 3</h1>
+		
+
+		<script type="text/javascript" src="estaticos/js/jquery.js"></script>
+		<script type="text/javascript">
+			var $ = (function() {
+				function Persona() {};
+				
+				Persona.prototype.getNombre = function() {
+					return this.nombre;
+				}
+				
+				return {
+					Persona: Persona
+				};
+			})();
+		</script>
+	</body>
+</html>

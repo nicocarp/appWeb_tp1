@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+<head lang="es">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	
+	
+	<link rel="stylesheet" href="estaticos/css/qunit.css">
+    <link href="estaticos/css/materialize_icons.css" rel="stylesheet">
+    <link href="estaticos/css/utils.css" rel="stylesheet">
+	<link type="text/css" rel="stylesheet" href="estaticos/css/materialize.min.css"  media="screen,projection"/>
+	
+	<title>Productos</title>
+</head>
+<body>
+
+<!-- NAV  -->
+<nav class="nav-extended red">
+	<div class="nav-wrapper">
+		<a href="#!" class="brand-logo"><i class="material-icons">cloud</i>River Plate</a>
+		<ul class="right hide-on-med-and-down">
+			<li><a href="sass.html"><i class="material-icons">search</i></a></li>
+			<li><a id="" href=""><i  class="material-icons">perm_identity</i></a></li>
+		</ul>
+	</div>
+</nav>
+<!-- FIN NAV  -->
+<!-- CONTENEDOR PRINCIPAL  -->
+<div class="section no-pad-bot ">    	
+    	<div class="row title-heading">    		
+	 		<div class="col s12 red accent-4">
+					<h3 class="center oswald uppercase white-text"> Shopping</h3>
+
+			</div>
+  		</div>
+
+    
+<!-- Boton flotante carrito-->
+<div class="fixed-action-btn" style="bottom: 45px; right: 24px; top:45px;">
+	    <a id="mostrar_carro" href="#modal_carro" class="btn-floating btn-large red">
+	      <i style="position:relative; left: -5px;" class="material-icons">shopping_cart</i>
+	    </a>
+	    <span class="white-text "style="z-index:3; position:relative; left: -25px;">
+	    	<i id="cantidad_productos_carro"></i>
+	    </span>
+</div>     	
+<!-- Fin boton flotante carrito-->
+    
+  	<div class="row">
+  		<div class="col s3 z-depth-3">
+  			<div class="block-title center">
+		        <h4>Shop By</h4>
+		    </div>
+		    <div class="divider red"></div>
+  			<ul class="collapsible" data-collapsible="accordion">
+			    <li>
+			      <div class="collapsible-header"><i class="material-icons">search</i>Categorias</div>
+			      <div class="collapsible-body center">			      	
+			      	<p><a class="blue-text" href="">Categoria 1</a></p>
+			      	<p><a class="blue-text" href="">Categoria 1<Cat1</a></p>
+			      	<p><a class="blue-text" href="">Categoria 1</a></p>
+			      </div>
+			    </li>
+			    <li>
+			      <div class="collapsible-header"><i class="material-icons">place</i>Precio</div>
+			      <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+			    </li>
+			    <li>
+			      <div class="collapsible-header"><i class="material-icons">whatshot</i>En Stock</div>
+			      <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+			    </li>
+			  </ul>
+  		</div>
+  		<div class="col s9 z-depth-3" >
+  			<!-- > LISTADO DE PRODUCTOS <-->
+		  	<div class="block-title center">
+		  		<h4 class="header black-text">Mostrando datos</h4>
+		    </div>		    
+		    <div class="divider red"></div>			
+			    <div id="_ventas" class="secciones" data-ruta="ventas">
+			    	<ul id="productos_ventas" class="row produktliste"></ul>     	
+			    </div>
+			    <div id="_carro" class="secciones"  data-ruta="carro">
+			    	<ul id="productos_carro2" class="">
+			    			</ul>		      	
+			    </div>			
+		 	<!-- FIN LISTADO PRODUCTOS  -->
+  		</div>
+  	</div>	    
+</div>
+<!-- Fin contenedor principal  -->
+
+<!-- Test  -->
+	<div id="qunit"></div>
+  	<div id="qunit-fixture"></div>
+<!-- FIN  Test  -->
+
+
+<!-- Modal Carrito -->
+<div id="modal_carro" class="modal modal-fixed-footer">
+	<div class="modal-content">
+		<h3 class="header center black-text" >Carrito de Compras</h3>
+		<ul class="collection" id="productos_carro"></ul>
+	</div>
+	<div class="modal-footer">
+		<div class="row">
+			<div class="col s8" style="font-size:30px;">			
+		        <strong>Total (<strong id="cant_productos_carro"></strong>)</strong>
+		        <strong class="right">$ <strong id="precio_total_carro">12</strong></strong>
+		        
+		    </div>
+			
+			<div class="col s4">
+				<button type="button" class="btn red accent-4">
+					<span>La Cuenta</span>
+				</button>
+			</div>
+			
+		</div>
+		
+	</div>
+</div>
+<!-- FIN Modal Carrito -->
+</body>
+	<script type="text/javascript" src="estaticos/js/jquery.min.js"></script>
+	<script src="estaticos/js/qunit.js"></script>
+	<script type="text/javascript" src="estaticos/js/materialize.min.js"></script>
+	<script src="estaticos/js/utils.js"></script>
+	<script src="tests.js"></script>
+	<script src="Ventas.js"></script>
+	<script type="text/javascript" src="estaticos/js/underscore.js"></script>
+</html>
+
+<script id="producto-carro-tpl" type="text/template">
+{{ _.each(productos, function(producto){  }}
+	<li class="collection-item avatar" id="{{=producto.producto.nombre}}">
+        <img src="{{=producto.producto.imagen}}" class="circle">
+     	<div class="row">
+         	<div class=" col s5">
+         		<span class="title">{{=producto.producto.nombre}}</span>         		
+         		<p>${{=producto.producto.precio}} c/u</p>
+			</div>
+			<div class=" col s3">
+     			<input id="cant_carrito" data-id-prod="{{=producto.producto.id}}" maxlength="12" value="{{=producto.cantidad}}" type="number">        		
+			</div>
+			<div class=" col s4">
+				<br>	        	
+	        	<span class="new badge green" data-badge-caption="Subtotal">{{=producto.precioSubTotal}}</span>
+	        	<br>
+	        	    <span class="new badge green" data-badge-caption="Stock">0</span>
+			</div>
+		</div>
+  		<a  id="sacar_del_carro" class="secondary-content"><i class="material-icons">close</i></a>
+    </li>
+{{ }); }}
+</script>
+<script id="producto-tpl" type="text/template">	
+{{ _.each(productos, function(producto){  }}
+	<li class="col s12 m6 l3" data-cant-en-carro="0">
+		<div class="card z-depth-5" style="position: relative;margin-bottom: 20px;">
+		{{ var hay_promo = _.findWhere(promociones, {"id_prod":producto.id}); }}
+		{{ if ( hay_promo != undefined) { 	}}
+			{{ if ( hay_promo.promocion.getTipo() == "descuento" ) { 	}}
+				<div class="product-offprice-ribbon ">
+					Off <br> 
+					-{{=hay_promo.promocion.getDescuento().porcentajeDescuento}}%
+				</div>
+				<p class="old-price right">
+	                <span class="price">
+	                   ${{=producto.precio}}</span>
+	            </p>
+	            <br>
+				<p class="special-price right">
+		        	<span class="price" >
+		            $ {{=producto.getPrecioUnitario(hay_promo.promocion.getDescuento())}}</span>
+		        </p>
+		    {{ }else if (hay_promo.promocion.getTipo() == "combo"){  }}
+		    	
+		         <a id="" href=""><i class="material-icons medium amber-text lighten-2-text">error_outline</i></a>
+		         <p class="special-price right">
+		        	<span class="price" >
+		            $ {{=producto.precio}}</span>
+		        </p>
+	         <br>
+		    {{ } }} 	
+		       
+		{{ } else{ }}	
+			<p class="special-price right">
+		        	<span class="price" >
+		            $ {{=producto.precio}}</span>
+		        </p>
+	         <br>		   
+		{{  }; }}
+			<div class="card-image">
+				<img src="{{=producto.imagen}}">	
+			</div>
+			<div class="card-content">				
+				<p class="center">{{=producto.nombre}}</p>
+				<div class="row">
+					<input  id="input_cant_pedida_{{=producto.indice}}"  maxlength="12" value="1" type="number">
+					 <button id="btn_add_carro" class="btn waves-effect waves-light red">Buy<i class="material-icons right">shopping_cart</i></button>
+				</div>				 
+			</div>
+		</div>		
+	</li>
+{{ }); }}
+</script>
+        
+
+
+<script type="text/javascript">
+	_.templateSettings = {
+		evaluate:/\{\{(.+?)\}\}/g,
+	  interpolate: /\{\{=(.+?)\}\}/g,
+	  escape: /\{\{-(.+?)\}\}/g
+
+	};
+	$(document).ready(function(){
+		    $('.tooltipped').tooltip({delay: 50});
+  	  Materialize.toast('I am a toast!', 4000) // 4000 is the duration of the toast
+		  $('.carousel.carousel-slider').carousel({fullWidth: true});
+  		$('.modal').modal();
+  		var carrito, ventas;
+  		var productosCarroTpl = _.template($("#producto-carro-tpl").html());
+		
+		$.getJSON( "datos.json", function(datos) {
+			carrito = new Carro();
+			ventas = new Ventas(new ProductoFactory(datos.ProductosVentas), carrito);
+			/*var productoTpl = _.template($("#producto-tpl").html());
+			$("#productos_ventas").html(productoTpl(
+				{"productos":ventas.getProductos()}));
+			*/
+			armar_html_productos_en_ventas();
+		});
+
+		function armar_html_productos_en_ventas(){
+			var productos = ventas.getProductos();
+			//getIdsEnPromo es una funcion que devuelve un dict para facilitar la muestra de mjes
+			var promociones = ventas.getIdsEnPromo();
+			var productoTpl = _.template($("#producto-tpl").html());
+			console.log("PROMOCIONES");
+			console.log(promociones);
+			$("#productos_ventas").html(productoTpl(
+				{"productos":productos,
+				"promociones": promociones
+			}));
+		}
+
+		function actualizar_numeros_carro(){			
+			$("#cant_productos_carro").html(carrito.getCantProductos());
+			$("#precio_total_carro").html(carrito.calcularTotal());
+			$("#cantidad_productos_carro").html(carrito.getCantProductos());
+		}
+		function armar_html_carro() {
+			var html_productos = productosCarroTpl({"productos":carrito.productos}); 
+			$("#productos_carro").html(html_productos);			
+			actualizar_numeros_carro();			
+		}		
+
+		$(document).on('click', '#mostrar_carro', armar_html_carro);
+
+		$(document).on('click', '#sacar_del_carro', function(e) {
+			carrito.sacarDelCarro($(this).parents('li').index());
+			$(this).parents('li').remove();			
+			actualizar_numeros_carro();
+		});
+		
+		$(document).on('click', '#btn_add_carro', function(e) {
+			var li = $(this).parents('li');
+			var indice_prod = li.index();
+			var cantidad = Number($("#input_cant_pedida_"+indice_prod).val());
+			var cant_en_carro = Number(li.data("cantEnCarro"));
+			var acum= cantidad + cant_en_carro;
+			var result = ventas.agregarAlCarro(indice_prod, acum, cantidad);
+			if ( result == 'ok'){
+				actualizar_numeros_carro();
+				li.data("cantEnCarro", acum);
+			}else{
+				Materialize.toast(result, 4000);
+			}
+			
+		});
+
+		$(document).on('change', '#cant_carrito', function(e) {
+			var id_prod = $(this).data("id-prod");
+			var result = ventas.actualizarCantPorIdEnCarro($(this).data("id-prod"), Number($(this).val()));
+			if (result == 'ok'){
+				armar_html_carro();	
+			}else{
+				Materialize.toast(result, 4000);	
+			}
+			
+		});
+		
+
+		
+
+});
+	
+
+</script>
