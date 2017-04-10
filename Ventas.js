@@ -75,27 +75,25 @@ function Ventas(productos, carro){
 	this.getProductos = getProductos;
 	this.carro.setPromociones(this.promociones);
 	this.getIdsEnPromo = getIdsEnPromo;
-	this.actualizarCantPorIdEnCarro = actualizarCantPorIdEnCarro;
-	
+	this.actualizarCantEnCarro = actualizarCantEnCarro;
+	this.getProductosPorFiltro = getProductosPorFiltro;
+		
 	function seleccionProducto(indice){
 		return this.productos[indice];
 	}
-	function agregarAlCarro(i_prod, acum, cantidad){
-		if (this.productos[i_prod].alcanzaStock(acum)){
-			this.carro.agregarAlCarro(this.productos[i_prod], cantidad);	
-			return "ok";
-		}else{
+	function agregarAlCarro(prod_id, acum, cantidad){
+		var p = _.find(this.productos, function(prod){return prod.id == prod_id});
+		if (!p.alcanzaStock(acum))
 			return "Cantidad no disponible";
-		}		
+		this.carro.agregarAlCarro(p, cantidad);	
+		return "ok";
 	}
-	function actualizarCantPorIdEnCarro(id_prod, cantidad){
+	function actualizarCantEnCarro(id_prod, cantidad){
 		var prod = _.find(this.productos, function(p){return p.id == id_prod;});
-		if (prod.alcanzaStock(cantidad)){
-			this.carro.actualizarCantPorId(id_prod, cantidad);	
-			return 'ok';
-		}
-		return 'Cantidad no Disponible';
-
+		if (!prod.alcanzaStock(cantidad))
+			return 'Cantidad no Disponible';	
+		this.carro.actualizarCantPorId(id_prod, cantidad);	
+		return 'ok';
 	}
 	function promociones(){
 		console.log("No Manejamos promociones D: !!!");
@@ -112,6 +110,20 @@ function Ventas(productos, carro){
 	}
 	function getIdsEnPromo(){
 		return this.promociones.getIdsEnPromo();
+	}
+	function getProductosPorFiltro(filtros){
+		console.log(filtros);
+		var filtro = this.productos;
+		if (!_.isEmpty(filtros.categoria))
+			filtro = _.filter(filtro, function(p){return p.categoria==filtros.categoria});
+		if (filtros.stock)
+			filtro = _.filter(filtro, function(p){return p.cantidad > 0});
+		if (!_.isEmpty(filtros.nombre))			
+			filtro = _.filter(filtro, function(p){return p.nombre.toLocaleLowerCase().indexOf(filtros.nombre) != -1;});
+
+		return filtro;
+
+
 	}
 }
 function PromocionFactory(productos){
