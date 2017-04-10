@@ -38,7 +38,7 @@
     display: none;
 }
 .old-price .price {
-    font-size: 12px;
+    font-size: 20px;
     font-family: "oswald", sans-serif;
     color: #000;
     text-decoration: line-through;
@@ -59,3 +59,84 @@
     line-height: 1.5;
     z-index:3;
 }
+#principal{
+    background-image: url(../imagenes/tienda4.jpg);
+}
+
+#alerta_combo {
+    position: absolute;
+    z-index: 1;
+     margin-right: 15px;
+    padding: 0px 0px;
+    color: #FFF;
+    text-align: center;
+    line-height: 1.5;
+}
+
+.precio-viejo {
+    font-size: 20px;
+    font-family: "oswald", sans-serif;
+    color:  #000;
+    text-decoration: line-through;
+    position: relative;
+    padding-top: 20%;
+    padding-right: 5px;
+
+}
+.precio-promo {
+    font-size: 23px;
+    font-family: "oswald", sans-serif;
+    color:  red;
+    position:relative;
+    padding-top: 20%;
+    padding-right: 5px;
+
+}
+
+.precio-sin-promo {
+    font-size: 20px;
+    font-family: "oswald", sans-serif;
+    color:  red;
+    position:relative;
+    padding-top: 20%;
+    padding-right: 5px;
+
+}
+.nombre-prod {   
+     float:left; margin:10px 0 0 0; word-wrap: break-word; width:100%;
+     overflow:hidden;
+    white-space:nowrap;
+    text-overflow: ellipsis;
+}
+
+.precio_unitario {
+    font-size: .100%;
+    color: #999;
+    font-style: italic;
+    line-height: normal;
+}
+#modal_info_producto {
+  
+}
+* {
+    box-sizing: border-box;
+}
+
+@media only screen and (max-width: 500px) {
+    body {
+        background-color: white;
+        #info_prod {
+
+
+        }
+    }
+}
+@media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    [class*="col-"] {
+        width: 100%;
+    }
+}
+
+
+
