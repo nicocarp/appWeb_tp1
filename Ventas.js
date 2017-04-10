@@ -77,6 +77,7 @@ function Ventas(productos, carro){
 	this.getIdsEnPromo = getIdsEnPromo;
 	this.actualizarCantEnCarro = actualizarCantEnCarro;
 	this.getProductosPorFiltro = getProductosPorFiltro;
+	this.getProductoById=getProductoById;
 		
 	function seleccionProducto(indice){
 		return this.productos[indice];
@@ -122,8 +123,11 @@ function Ventas(productos, carro){
 			filtro = _.filter(filtro, function(p){return p.nombre.toLocaleLowerCase().indexOf(filtros.nombre) != -1;});
 
 		return filtro;
-
-
+	}
+	function getProductoById(id_prod){
+		return _.find(this.productos, function(p){
+			return p.id == id_prod;
+		});
 	}
 }
 function PromocionFactory(productos){
@@ -243,12 +247,21 @@ function Promocion(){
 		}
 		return false;	
 	}
+	this.getPrecioProducto = function(producto, cantidad){
+		if (this.productos.length > 1)
+			return producto.precio;
+		var dif = cantidad / this.cantidad;
+		var desc = this.descuento.porcentajeDescuento();
+
+	}
 	this.getDescuento =function(){
 		return this.descuento;
 	}
+
 	this.getPorcentajeDescuento = function(){
 		return this.descuento.porcentajeDescuento;
 	}
+	
 	this.getTipo = function(){
 		return this.tipoPromocion;
 	}
