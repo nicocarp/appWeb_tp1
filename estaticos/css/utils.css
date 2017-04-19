@@ -13,7 +13,7 @@
 }
 .price {
     font-size: 15px;
-    font-family: "oswald", sans-serif;
+    font-family: "dinbold", sans-serif;
     color: #d50000;
     margin: 0px;
 }
@@ -26,7 +26,7 @@
     width: 84px;
     position: absolute;
     right: 0px;
-    font-family: "oswald";
+    font-family: "dinbold";
     margin-top: 15px;
     margin-right: 15px;
     z-index: 5;
@@ -39,7 +39,7 @@
 }
 .old-price .price {
     font-size: 20px;
-    font-family: "oswald", sans-serif;
+    font-family: "dinbold", sans-serif;
     color: #000;
     text-decoration: line-through;
 }
@@ -51,7 +51,7 @@
     width: 65px;
     height: 64px;
     position: absolute;
-    font-family: "oswald";
+    font-family: "dinbold";
     margin-right: 15px;
     padding: 4px 7px;
     color: #FFF;
@@ -60,7 +60,8 @@
     z-index:3;
 }
 #principal{
-    background-image: url(../imagenes/tienda4.jpg);
+    background-image: url(../imagenes/header2.jpg);
+    height:600px;
 }
 
 #alerta_combo {
@@ -75,7 +76,7 @@
 
 .precio-viejo {
     font-size: 20px;
-    font-family: "oswald", sans-serif;
+    font-family: "dinbold";
     color:  #000;
     text-decoration: line-through;
     position: relative;
@@ -85,7 +86,7 @@
 }
 .precio-promo {
     font-size: 23px;
-    font-family: "oswald", sans-serif;
+    font-family: "dinbold", sans-serif;
     color:  red;
     position:relative;
     padding-top: 20%;
@@ -95,11 +96,12 @@
 
 .precio-sin-promo {
     font-size: 20px;
-    font-family: "oswald", sans-serif;
+    font-family: "dinbold", sans-serif;
     color:  red;
     position:relative;
     padding-top: 20%;
     padding-right: 5px;
+    z-index: 3;
 
 }
 .nombre-prod {   
@@ -110,7 +112,7 @@
 }
 
 .precio_unitario {
-    font-size: .100%;
+    font-size: 100%;
     color: #999;
     font-style: italic;
     line-height: normal;
@@ -140,3 +142,14 @@
 
 
 
+html {
+    font-family: 'dinbold';
+    font-color: rgba(0,0,0,0.0);
+    text-transform: uppercase;
+    padding: 10px 14px;
+    font-size: 14px;
+    font-weight: bold;
+}
+.card-content{
+    background-color: white;
+}

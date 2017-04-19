@@ -13,16 +13,24 @@
 <body>
 
 <!-- ININCIO NAV  -->
-<nav class="white" role="navigation">
+<div class="" id="principal">
+<nav class=" white" role="navigation">
 	<div class="nav-wrapper container">
 		<a href="#!" class="brand-logo red-text"><i class="material-icons">cloud</i>Tienda River Plate</a>
 		<ul class="right hide-on-med-and-down">
+			<li><a class="red-text" id="mostrar_productos" href="#contenedor_productos_ventas">Productos</a></li>
+			<li><a a class="red-text" id="mostrar_promociones" href="#contenedor_promos">Promociones</a></li>
 			<li><a href="sass.html" class="red-text"><i class="material-icons">search</i></a></li>
 			<li><a id="" href="" class="red-text"><i  class="material-icons">perm_identity</i></a></li>
+
+
 		</ul>
 		 <ul id="nav-mobile" class="side-nav">
-	       <li><a href="sass.html"><i class="material-icons">search</i></a></li>
-			<li><a id="" href=""><i  class="material-icons">perm_identity</i></a></li>
+	       <li><a id="" href="">Productos</a></li>
+			<li><a id="mostrar_promociones" >Promociones</a></li>
+	       <li><a a class="red-text" href="sass.html"><i class="material-icons">search</i></a></li>
+			<li><a a class="red-text" id="" href=""><i  class="material-icons">perm_identity</i></a></li>
+			
 	     </ul>
 		 <a href="#" data-activates="nav-mobile" class="button-collapse red-text"><i class="material-icons">menu</i></a>
 	</div>
@@ -32,14 +40,15 @@
 
 <!-- CONTENEDOR PRINCIPAL  -->
 <div class="section no-pad-bot" id="index-banner">
-    <div class="container" id="principal">
+    
+    	
       <br><br>
-      <h1 class="header center black-text accent-5"><strong>Shopping</strong></h1>
+      <h1 class="header center black-text accent-5"><strong></strong></h1>
       <div class="row center">
-        <h5 class="header col s12 t">A modern responsive front-end framework based on Material Design</h5>
+        <h5 class="header col s12 t"></h5>
       </div>
       <div class="row center">
-        <a href="http://materializecss.com/getting-started.html" id="download-button" class="btn-large waves-effect waves-light orange">Get Started</a>
+        
       </div>
       <br><br>
     </div>
@@ -63,10 +72,10 @@
 		 <!-- Row para FILTROS-->
 		<div class="row">
 			<div class="input-field col s4">
-					<select id="filtro-select-categorias">
-						<option value=""  selected></option>						
-					</select>
-					<label>Categoria</label>
+				<select id="filtro-select-categorias">
+					<option value=""  selected></option>						
+				</select>
+				<label>Categoria</label>
 			</div>
 	        <div class="input-field col s4">
 	          	<input id="filtro-nombre" value="" type="text" class="validate">
@@ -79,20 +88,14 @@
 		</div>
 		<!-- FIN FILTROS  -->
 
+		    
+		<div class="divider"></div>
+		<!-- CONTENEDORES PRINCIPALES  -->
+		<div id="contenedor_promos"></div>
+		<div id="contenedor_productos_ventas" class="row card-panel grey lighten-5 z-depth-1"> 		
+			<ul id="productos_ventas"></ul>
+		</div>
 
-		<div class="block-title center">
-			<h4 class="header black-text">Mostrando datos</h4>
-		</div>		    
-		<div class="divider red"></div>
-		
-		<div class="row"> 		
-	  			<!-- > LISTADO DE PRODUCTOS <-->
-	  					
-				<ul id="productos_ventas"></ul>     	
-				<ul id="productos_carro2" class="">
-</ul>						
-			 	<!-- FIN LISTADO PRODUCTOS  -->
-  		</div>
 </div>
 </div>
   	    
@@ -108,26 +111,14 @@
 <!-- Modal Carrito -->
 <div id="modal_carro" class="modal modal-fixed-footer">
 	<div class="modal-content">
-		<h3 class="header center black-text" >Carrito</h3>
-			
-		<ul class="collection" id="productos_carro"></ul>
-<ul class="collection" id="probando">
-	
-
-</ul>
-
-		
+		<h4 class="header center black-text" >Carrito</h4>			
+		<ul class="collection" id="productos_carro"></ul>		
 	</div>
 	<div class="modal-footer">
 		<div class="row">
-			<div class="col s8" style="">			
-		        <strong>Total (<strong id="cant_productos_carro"></strong>)</strong>
-		        <strong class="right">$ <strong id="precio_total_carro">12</strong></strong>		        
-		    </div>
-			
-			<div class="col s4">
-				<button type="button" class="btn red accent-4">
-					<span>La Cuenta</span>
+			<div class="col s4 right">
+				<button type="button" id="btn_checkout" class="btn red accent-4">
+					<span class="right">La Cuenta</span>
 				</button>
 			</div>			
 		</div>		
@@ -152,12 +143,43 @@
 	<script src="Ventas.js"></script>
 	<script type="text/javascript" src="estaticos/js/underscore.js"></script>
 	<script src="estaticos/js/nouislider.min.js"></script>
+	<script src="estaticos/js/lockr.js" type="text/javascript"></script>
 </html>
 
+<script id="promo-tpl" type="text/tempalte">
+
+{{ _.each(promociones, function(promocion){ }}
+<div class="row card-panel grey lighten-5 z-depth-1"> 			  					
+	<div class="col s12 m8 left">
+	{{ _.each(promocion.productos, function(producto){ }}	
+		<div class="row valign-wrapper">
+			<div class="col s2">
+				<img src="{{=producto.imagen}}" class=" responsive-img"> 
+			</div>
+			<div class="col s10">
+				<p><span class="black-text">{{=producto.nombre}}</span></p>
+				<span class="black-text">$ {{=producto.precio}}</span>
+			</div>
+		</div>
+	{{ }); }}
+	</div>
+	<div class="row col s12 m4">
+		<p class="col m12 s12">{{=promocion.mjePromocion}}</p>
+		<p class="col m12 s4 left">$ {{=promocion.getPrecioTotalSinDescuento()}}</p>
+		<p class="col m12 s4 right">$ {{=promocion.getPrecioTotalConDescuento()}}</p>
+		{{ if (promocion.hayStock()) {  }}
+			<a class="btn col m12 s12" data-promo-id="{{=promocion.id}}" id="agegar_combo_al_carro">Agregar</a>	
+		{{ }else{ }}
+			<span class="col m12 s12 badge black white-text">Agotado</span>
+		{{ } }}
+	</div>
+</div>
+{{ }) }}
+
+</script>
 
 <script type="text/template" id="nuevo-producto-carro-tpl">
-{{ _.each(productos, function(producto){  }}
-{}
+{{ _.each(carro.productos, function(producto){  }}
 <li class="collection-item" id="{{=producto.producto.nombre}}">
 	<div class="row">
     	<div class="col l3 m3 s12">
@@ -169,108 +191,62 @@
 
     	</div> 
    	 	<div class="col l2 m3 s5">
-			<input id="cant_carrito" data-id-prod="{{=producto.producto.id}}" maxlength="12" value="{{=producto.cantidad}}" type="number"> 	
+			<input id="cant_carrito" data-valid-cant="{{=producto.cantidad}}" data-id-prod="{{=producto.producto.id}}" maxlength="12" value="{{=producto.cantidad}}" type="number"> 	
     	</div>
     	<div class="col l2 m2 s7">
-    		<p<span class="right" data-badge-caption="Subtotal" style="">$ {{=producto.precioSubTotal}}</span></p>
-    		<span class="precio_unitario right">$ {{=producto.producto.precio}}/cu</span>
+    		<div class="field">
+    			<p<span class="right">$ {{=producto.precioSubTotal}}</span></p>
+    			<span class="precio_unitario right">$ {{=producto.producto.precio}}/cu</span>
+    		</div>
+    		
     	</div>
-		<a  id="sacar_del_carro" class="secondary-content"><i class="black-text material-icons">delete</i></a>
+			<a id="sacar_del_carro" class="secondary-content"><i class="black-text material-icons">delete</i></a>
 	</div>
  </li>
-
 {{ }) }}
-
-</script>
-
-<script id="producto-carro-tpl" type="text/template">
-{{ _.each(productos, function(producto){  }}
-	<li class="collection-item avatar" id="{{=producto.producto.nombre}}">
-        <img src="{{=producto.producto.imagen}}" class="circle">
-     	<div class="row">
-         	<div class=" col s5">
-         		<span class="title">{{=producto.producto.nombre}}</span>         		
-         		<p>${{=producto.producto.precio}} c/u</p>
-			</div>
-			<div class=" col s3">
-     			<input id="cant_carrito" data-id-prod="{{=producto.producto.id}}" maxlength="12" value="{{=producto.cantidad}}" type="number">        		
-			</div>
-			<div class=" col s4">
-				<br>	        	
-	        	<span class="new badge green" data-badge-caption="Subtotal">{{=producto.precioSubTotal}}</span>
-	        	<br>
-	        	    <span class="new badge green" data-badge-caption="Stock">0</span>
-			</div>
+{{ var sub_total = carro.getTotalSinDescuento(); }}
+{{ var descuentos = carro.getDescuentosPromo(promociones); }}
+{{ var  total = sub_total - descuentos;}}
+<li class="collection-item">
+	<div class="row">
+		<div class="col s8">
+			<span class="title">Subtotal</span>
 		</div>
-  		<a  id="sacar_del_carro" class="secondary-content"><i class="material-icons">close</i></a>
-    </li>
-{{ }); }}
-</script>
-<script id="producto-tpl" type="text/template">	
-{{ _.each(productos, function(producto){  }}
-	<li class="col s12 m6 l3" data-cant-en-carro="0" data-prod-id="{{=producto.id}}">
-		<div class="card large" style="position: relative;margin-bottom: 20px;">
-		{{ var hay_promo = _.findWhere(promociones, {"id_prod":producto.id}); }}
-		{{ if ( hay_promo != undefined) { 	}}
-			{{ if ( hay_promo.promocion.getTipo() == "descuento" ) { 	}}
-				<div class="product-offprice-ribbon ">
-					Off <br> 
-					-{{=hay_promo.promocion.getDescuento().porcentajeDescuento}}%
-				</div>
-				<p class="old-price right">
-	                <span class="price">
-	                   ${{=producto.precio}}</span>
-	            </p>
-	            <br>
-				<p class="special-price right">
-		        	<span class="price" >
-		            $ {{=producto.getPrecioUnitario(hay_promo.promocion.getDescuento())}}</span>
-		        </p>
-		    {{ }else if (hay_promo.promocion.getTipo() == "combo"){  }}
-		    	
-		         <a id="alerta_combo" href=""><i class="material-icons medium yellow-text lighten-2-text">error_outline</i></a>
-		         <p class="special-price right">
-		        	<span class="price" >
-		            $ {{=producto.precio}}</span>
-		        </p>
-	         <br>
-		    {{ } }} 	
-		       
-		{{ } else{ }}	
-			<p class="special-price right">
-		        	<span class="price" >
-		            $ {{=producto.precio}}</span>
-		        </p>
-	         <br>		   
-		{{  }; }}
-			<div class="card-image">
-				<img src="{{=producto.imagen}}">	
-			</div>
-			<div class="card-content">	
-				<div class="row">			
-					<p class="center">{{=producto.nombre}}</p>
-				</div>
-				<div class="row">
-					<input  id="input_cant_pedida_{{=producto.id}}"  maxlength="12" value="1" type="number">
-					 <button id="btn_add_carro" class="btn waves-effect waves-light red">Buy<i class="material-icons right">shopping_cart</i></button>
-				</div>				 
-			</div>
-		</div>		
-	</li>
-{{ }); }}
-</script>
+		<div class="col s4">
+			<div class="right "><strong>$ <span class="value">{{=sub_total}}</span></strong></div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col s8">
+			<span class="title">Descuentos</span>
+		</div>
+		<div class="col s4">
+			<div class="right"><strong>$ <span class="value">{{=descuentos}}</span></strong></div>		
+		</div>
+	</div>
+	<div class="row">
+		<div class="col s8">
+			<span class="title">Total</span>
+		</div>
+		<div class="col s4">
+			<div class="right"><strong>$ <span class="value">{{=total}}</span></strong></div>		
+		</div>
+	</div>
+</li>
 
+</script>
 
 <script id="nuevo-producto-tpl" type="text/template">	
 {{ _.each(productos, function(producto){  }}
-	<a data-prod-id="{{=producto.id}}" id="click_info_producto" href="#modal_info_producto"><li class="col s12 m6 l3" id="agregar_producto" data-cant-en-carro="0" data-prod-id="{{=producto.id}}">
+	<a data-prod-id="{{=producto.id}}" id="click_info_producto" href="#modal_info_producto">
+	<li class="col s12 m6 l3">
 		 <div class="card medium">
 		{{ var hay_promo = _.findWhere(promociones, {"id_prod":producto.id}); }}
 		{{ if ( hay_promo != undefined) { 	}}
 			{{ if ( hay_promo.promocion.getTipo() == "descuento" ) { 	}}
 				<div class="product-offprice-ribbon ">
 					Off <br> 
-					-{{=hay_promo.promocion.getDescuento().porcentajeDescuento}}%
+					-{{=hay_promo.promocion.getPorcentajeDescuento()}}%
 				</div>				
 		    {{ }else if (hay_promo.promocion.getTipo() == "combo"){  }}
 		    	<span id="alerta_combo" href=""><i class="material-icons medium yellow-text lighten-2-text">error_outline</i></span>
@@ -279,22 +255,28 @@
 			<div class="card-image" >
 				<img class="responsive-img" src="{{=producto.imagen}}">	
 			</div>
+			<div class="card-content">
 				<span class="nombre-prod">{{=producto.nombre}}</span>	
 				{{ if (hay_promo != undefined && hay_promo.promocion.getTipo() == "descuento" ){ }}
+				{{var func_descuento = _.partial(hay_promo.promocion.aplicarDescuento, hay_promo.promocion.descuento);}}
 					<span class="precio-viejo left">$ {{=producto.precio}}</span>	
-					<span class="precio-promo right">$ {{=producto.getPrecioUnitario(hay_promo.promocion.getDescuento())}}</span>	
+					<span class="precio-promo right">$ {{=producto.getPrecioUnitario(func_descuento)}}</span>	
 				{{ }else{ }}
 					<span class="precio-sin-promo right">$ {{=producto.precio}}</span>	
 				{{ } }}
+				<br><span class=" badge bottom">Stock {{=producto.cantidad}}</span>	
+				</div>
 		</div>
 	</li></a>
 {{ }); }}
 </script>
 
+
+
 <script id="info-producto-tpl" type="text/template">
 {{ var hay_promo = _.findWhere(promociones, {"id_prod":producto.id}); }}
 
-<div class="row section" id="info_prod_{{=producto.id}}" data-cant-en-carro="0" data-prod-id="{{=producto.id}}" >
+<div class="row section" id="info_prod_{{=producto.id}}" data-prod-id="{{=producto.id}}" >
 	<div class="col m6 s12">
 		<img src="{{=producto.imagen}}" style="width: -moz-available;">
 	</div>
@@ -304,7 +286,8 @@
 		{{ if(hay_promo) { }}
 			<span>{{=hay_promo.promocion.mjePromocion}}</span>
 			{{ if (hay_promo.promocion.getTipo() == 'descuento')}}
-				{{precio_unitario = producto.getPrecioUnitario(hay_promo.promocion.getDescuento());}}
+			{{var func_descuento = _.partial(hay_promo.promocion.aplicarDescuento, hay_promo.promocion.descuento);}}
+				{{precio_unitario = producto.getPrecioUnitario(func_descuento);}}
 		{{ } }}
 	<div class="row no-margin">
 	<div class="col s12">							
@@ -314,14 +297,14 @@
 		</div><br>
 		<div class="col s4"><span class="price">$ <span itemprop="price" class="price-value" data-baseprice="55.00">{{=precio_unitario}}</span></span></div>						
 	</div>
-	<button id="btn_add_carro" data-cant-en-carro="0" data-prod-id="{{=producto.id}}" class="btn btn-large main-pink waves-effect waves-light"><i class="material-icons right">add_shopping_cart</i>Buy</button>
+	<button id="btn_add_carro"  data-prod-id="{{=producto.id}}" class="btn btn-large main-pink waves-effect waves-light"><i class="material-icons right">add_shopping_cart</i>Buy</button>
 </div>
 	</div>				
 </div>
 </script>
 
+<script type="text/template" id="checkout-tpl"></script>
 
-        
 
 
 <script type="text/javascript">
@@ -329,65 +312,40 @@
 		evaluate:/\{\{(.+?)\}\}/g,
 	  interpolate: /\{\{=(.+?)\}\}/g,
 	  escape: /\{\{-(.+?)\}\}/g
-
 	};
 
-	(function($){
-  $(function(){
-
-    $('.button-collapse').sideNav();
-
-  }); // end of document ready
-})(jQuery); // end of jQuery name space
 	$(document).ready(function(){
-    $('select').material_select();
-
-
-		    $('.tooltipped').tooltip({delay: 50});
-  	  Materialize.toast('I am a toast!', 4000) // 4000 is the duration of the toast
-		  $('.carousel.carousel-slider').carousel({fullWidth: true});
-  		$('.modal').modal();
-  		var carrito, ventas;
-  		var productosCarroTpl = _.template($("#nuevo-producto-carro-tpl").html());
-		
-		$.getJSON( "datos.json", function(datos) {
-			console.log(datos);
-			carrito = new Carro();
-			ventas = new Ventas(new ProductoFactory(datos.ProductosVentas), carrito);
-			armar_html_productos_en_ventas(ventas.productos);
-			armar_html_categorias(datos.categorias);
+		$(document).ready(function(){
+			$('select').material_select();			
+			$('.tooltipped').tooltip({delay: 50});
 		});
+    	$('.modal').modal();
+
+		$('.button-collapse').sideNav();
+		$('.tooltipped').tooltip({delay: 50});
+
+  	 	var productosCarroTpl = _.template($("#nuevo-producto-carro-tpl").html());
+		var carrito = new Carro();
+		var ventas = new Ventas(carrito);
+		armar_html_productos_en_ventas(ventas.productos, ventas.getIdsProdsEnPromo());
+		armar_html_categorias(ventas.categorias);
+	
 
 		/* NUEVA INTERFAZ*/
-		$(document).on('click', '#click_info_producto', function(){
-			var id_p = $(this).data('prodId');
-			console.log("buscando id"+id_p);
-			var prod = ventas.getProductoById(id_p);
-			var tpl =  _.template($("#info-producto-tpl").html());
-			var promociones = ventas.getIdsEnPromo();
-
-			$('#info_prod').html(tpl({"producto":prod, "promociones":promociones}));
-		});
+		
 
 		
 		/*fin nueva interfaz*/
 		function armar_html_categorias(categorias){
-			//var categoria_tpl = _.template($("#categorias-filtro-tpl").html());
-			//$("#lista-categorias").html(categoria_tpl({"categorias":categorias}));
 			_.each(categorias, function(categoria){
 				$('#filtro-select-categorias').append($('<option>', {
 				    value: Number(categoria.id),
 				    text: String(categoria.nombre)
 				}));	
 			})
-			
-
 		}
-		function armar_html_productos_en_ventas(productos){
-			//getIdsEnPromo es una funcion que devuelve un dict para facilitar la muestra de mjes
-			var promociones = ventas.getIdsEnPromo();
-			console.log("PROMOCIONES");
-			console.log(promociones);
+
+		function armar_html_productos_en_ventas(productos, promociones){
 			var productoTpl = _.template($("#nuevo-producto-tpl").html());
 			$("#productos_ventas").html(productoTpl(
 				{"productos":productos,
@@ -396,48 +354,29 @@
 		}
 
 		function actualizar_numeros_carro(){			
-			$("#cant_productos_carro").html(carrito.getCantProductos());
-			$("#precio_total_carro").html(carrito.calcularTotal());
 			$("#cantidad_productos_carro").html(carrito.getCantProductos());
 		}
+
 		function armar_html_carro() {
-			var html_productos = productosCarroTpl({"productos":carrito.productos}); 
+			var promociones = ventas.getPromociones();
+			var html_productos = productosCarroTpl({
+				"carro":carrito,
+				"promociones":promociones
+			}); 
 			$("#productos_carro").html(html_productos);			
 			actualizar_numeros_carro();			
 		}		
 
-		$(document).on('click', '#mostrar_carro', armar_html_carro);
+		function armar_html_promo(promociones){
+			var tpl_promo = _.template($("#promo-tpl").html());
+			var html_promo = tpl_promo({"promociones":promociones});
+			$("#contenedor_promos").html(html_promo);
+		}
 
-		$(document).on('click', '#sacar_del_carro', function(e) {
-			carrito.sacarDelCarro($(this).parents('li').index());
-			$(this).parents('li').remove();			
-			actualizar_numeros_carro();
-		});
-		
-
-
-		$(document).on('click', '#btn_add_carro', function(e) {
-			console.log("click add");
-			var prod_id =  $(this).data("prodId");
-			var cantidad = Number($("#input_cant_pedida_"+prod_id).val());
-			console.log("cantidad"+ cantidad);
-			var cant_en_carro = Number($(this).data("cantEnCarro"));
-			var acum= cantidad + cant_en_carro;
-			var result = ventas.agregarAlCarro(prod_id, acum, cantidad);
-			if ( result == 'ok'){
-				actualizar_numeros_carro();
-				$(this).data("cantEnCarro", acum);
-			}else{
-				Materialize.toast(result, 4000);
-			}
-			$('.tooltipped').tooltip({delay: 50});
-			
-		});
 		function filtrado_productos(){
 			var buscar_por_categoria  = $( "#filtro-select-categorias" ).val();
 			var buscar_por_stock =  $("#filtro-en-stock").prop('checked')
 			var buscar_por_nombre = $("#filtro-nombre").val();
-
 			var filtros = {
 				"categoria": buscar_por_categoria,
 				"stock": buscar_por_stock,
@@ -445,23 +384,89 @@
 			};
 			var productos = ventas.getProductosPorFiltro(filtros);
 			armar_html_productos_en_ventas(productos);
+		}
 
-		}	
-
+		
+		/* Nav */
+		$(document).on('click', '#mostrar_promociones', function(){
+			$("#contenedor_productos_ventas").hide();
+			$("#contenedor_promos").show();
+			armar_html_promo(ventas.promociones);
+		});
+	
+		$(document).on('click', '#mostrar_productos', function(){
+			$("#contenedor_promos").hide();		
+			$("#contenedor_productos_ventas").show();
+			//armar_html_productos_en_ventas(ventas.productos, ventas.getIdsProdsEnPromo());
+		});
+		
 		/* Eventos de filtro */
 		$(document).on('change', '#filtro-select-categorias', filtrado_productos);
 		$(document).on('click', '#filtro-en-stock', filtrado_productos);
 		$(document).on('change', '#filtro-nombre', filtrado_productos);
+		
+		/* Promociones */
+		$(document).on('click', '#agegar_combo_al_carro', function(){
+			var promo_id = Number($(this).data('promoId'));
+			if ((result = ventas.agregarComboAlCarro(promo_id)) == 'ok')
+				actualizar_numeros_carro();
+			else
+				Materialize.toast(result, 4000);
+		});
+		/* Info producto */
+		$(document).on('click', '#click_info_producto', function(){
+			var id_p = $(this).data('prodId');
+			var prod = ventas.getProductoById(id_p);
+			var tpl =  _.template($("#info-producto-tpl").html());
+			var promociones = ventas.getIdsProdsEnPromo();
+			$('#info_prod').html(tpl({"producto":prod, "promociones":promociones}));
+		});
 
+		/* Carrito */
+		$(document).on('click', '#btn_add_carro', function(e) {
+			var prod_id =  $(this).data("prodId");
+			var cantidad = Number($("#input_cant_pedida_"+prod_id).val());
+			var result = ventas.agregarAlCarro(prod_id,cantidad);
+			if ( result == 'ok'){
+				actualizar_numeros_carro();
+				 $('#modal_carro').modal('close');
+				
+			}				
+			else
+				Materialize.toast(result, 4000);
+		});
+
+		
 		$(document).on('change', '#cant_carrito', function(e) {
 			var id_prod = $(this).data("id-prod");
-			var result = ventas.actualizarCantEnCarro($(this).data("id-prod"), Number($(this).val()));
+			var nueva_cantidad = Number($(this).val());
+			var result = ventas.actualizarCantEnCarro(id_prod, nueva_cantidad);
 			if (result == 'ok'){
+				$(this).data("validCant", nueva_cantidad);
 				armar_html_carro();	
 			}else{
+				$(this).val($(this).data("validCant"));
 				Materialize.toast(result, 4000);	
 			}			
 		});
+
+		$(document).on('click', '#mostrar_carro', armar_html_carro);
+
+		$(document).on('click', '#sacar_del_carro', function(e) {
+			carrito.sacarDelCarro($(this).parents('li').index());
+			armar_html_carro();
+		});
+		/* checkout */
+		$(document).on('click', '#btn_checkout', function(e){
+			var result = ventas.checkout();
+			armar_html_carro();
+			//var check-tpl = _.template($("#checkout-tpl").html());
+			Materialize.toast(result, 4000);
+
+
+			
+		});
+		
 		
 
 		
