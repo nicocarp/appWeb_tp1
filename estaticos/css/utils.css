@@ -11,41 +11,16 @@
     line-height: 1.5;
     z-index:3;
 }
-.price {
-    font-size: 15px;
-    font-family: "dinbold", sans-serif;
-    color: #d50000;
-    margin: 0px;
+
+#logo_river{
+    background-image: url(../imagenes/logo1.png);
+    width: 60px;
+    height: 60px;    
+    display:block;
+    padding-right:20px;
 }
 
-.item-inner {
-    position: relative;
-    margin-bottom: 20px;
-}
-.box-total {
-    width: 84px;
-    position: absolute;
-    right: 0px;
-    font-family: "dinbold";
-    margin-top: 15px;
-    margin-right: 15px;
-    z-index: 5;
-}
-.old-price {
-    margin: 0px;
-}
-.price-label {
-    display: none;
-}
-.old-price .price {
-    font-size: 20px;
-    font-family: "dinbold", sans-serif;
-    color: #000;
-    text-decoration: line-through;
-}
-.special-price {
-    margin: 0px;
-}
+
 .combo-info {
     background-image: url(../imagenes/combo_info.png);
     width: 65px;
@@ -59,10 +34,6 @@
     line-height: 1.5;
     z-index:3;
 }
-#principal{
-    background-image: url(../imagenes/header2.jpg);
-    height:600px;
-}
 
 #alerta_combo {
     position: absolute;
@@ -75,31 +46,29 @@
 }
 
 .precio-viejo {
-    font-size: 20px;
+    
     font-family: "dinbold";
     color:  #000;
     text-decoration: line-through;
     position: relative;
-    padding-top: 20%;
-    padding-right: 5px;
-
+}
+.numero_shopping_car {z-index:3; position:relative; left: -25px;}
+.btn_shopping_car {
+    bottom: 45px; right: 24px; top:45px;
 }
 .precio-promo {
-    font-size: 23px;
     font-family: "dinbold", sans-serif;
-    color:  red;
+    color:  red;    
     position:relative;
-    padding-top: 20%;
+    padding-top: 10px;
     padding-right: 5px;
-
 }
 
 .precio-sin-promo {
-    font-size: 20px;
     font-family: "dinbold", sans-serif;
     color:  red;
     position:relative;
-    padding-top: 20%;
+    padding-top: 10px;
     padding-right: 5px;
     z-index: 3;
 
@@ -140,12 +109,15 @@
     }
 }
 
+a:link {
+    color: black;
+}
+a:hover {
+    color: red;
+}
 
-
-html {
-    font-family: 'dinbold';
-    font-color: rgba(0,0,0,0.0);
-    text-transform: uppercase;
+body {
+    font-family: 'dinbold';    
     padding: 10px 14px;
     font-size: 14px;
     font-weight: bold;
@@ -153,3 +125,22 @@ html {
 .card-content{
     background-color: white;
 }
+
+.header_titulo{
+    font-family: 'dinbold';    
+    padding: 10px 14px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+
+@media screen and (max-width: 600px) {
+    .m0{
+        display: block;
+    }
+    .s0{
+        display: none;
+    }
+}
+        
+    

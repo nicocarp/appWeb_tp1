@@ -1,5 +1,8 @@
 function Carro(){
+	// atributos
 	this.productos = [];
+
+	// metodos
 	this.getTotalSinDescuento = getTotalSinDescuento;
 	this.agregarAlCarro = agregarAlCarro;
 	this.sacarDelCarro = sacarDelCarro;
@@ -22,9 +25,9 @@ function Carro(){
 	function getTotalSinDescuento(){
 		var total = 0; 
 		for (var i in this.productos){
-			total += this.productos[i].precioSubTotal;
+			total += Number(this.productos[i].precioSubTotal);
 		}
-		return total;
+		return total.toFixed(2);
 	}
 	
 	function agregarAlCarro(producto, cantidad){
@@ -32,15 +35,19 @@ function Carro(){
 			return;
 		var producto_para_agregar = this._getProductoEnCarro(producto);
 		if (producto_para_agregar == undefined){
+			var sub_total = producto.precio * cantidad;
+			sub_total = sub_total.toFixed(2);
 			producto_para_agregar = {
 				"producto": producto, 
 				"cantidad": Number(cantidad),
-				"precioSubTotal":producto.precio * cantidad
+				"precioSubTotal": Number(sub_total)
 			}
 			this.productos.push(producto_para_agregar);	
 		}else{
 			producto_para_agregar.cantidad += Number(cantidad);
-			producto_para_agregar.precioSubTotal += cantidad * producto.precio;
+			var sub_total = cantidad * producto.precio;
+			sub_total = sub_total.toFixed(2);
+			producto_para_agregar.precioSubTotal += Number(sub_total);
 		}
 	}
 
@@ -52,7 +59,7 @@ function Carro(){
 			return producto.producto.id == id_prod;
 		})
 		if (p != undefined){
-			p.precioSubTotal = p.producto.getPrecio(nueva_cant); 
+			p.precioSubTotal = (p.producto.getPrecio(nueva_cant)).toFixed(2); 
 			p.cantidad = nueva_cant;
 		}
 	}
@@ -70,7 +77,7 @@ function Carro(){
 			var result = promocion.getTotalConDescuentos(productos_carro);
 			descuentos += result;							
 		});
-		return descuentos;
+		return descuentos.toFixed(2);
 	}
 	function _getProductoEnCarro(prod){
 		return _.find(this.productos, function(producto){
@@ -80,11 +87,13 @@ function Carro(){
 	function getPrecioTotal(promociones){
 		var sub_total =  this.getTotalSinDescuento();
 		var descuentos = this.getDescuentosPromo(promociones);
-		return sub_total - descuentos;
+		var total =sub_total - descuentos;
+		return total.toFixed(2);
 	}
 	function vaciarCarro(){
 		this.productos = [];
 	}
+
 	
 }
 
@@ -120,24 +129,34 @@ Store.setCategorias =function(categorias){
 	Lockr.set('categorias', categorias);
 }
 
-	
-Store.probarStorage = function(){
-	if (typeof(Storage) !== "undefined") {
-		Lockr.set('promociones', this.promociones);
-		Lockr.set('productos', this.productos);
-		var promocion = Lockr.get('promociones')[1];
-		console.log(Promocion.prototype);
-		promocion.__proto__ = new Promocion();
-		
-		console.log(promocion.getTipo());
-	} else {
-		console.log("NO HAY LOCALSTORAGE");		 
-	}		
+Store.setCarro = function(carro){
+	Lockr.set('carro', carro);
+}
+Store.getCarro = function(){
+	var carro = Lockr.get('carro');
+	if (!carro)
+		return undefined;
+	carro.__proto__ = new Carro;
+	_.each(carro.productos, function(p_carro){		
+		p_carro.producto.__proto__ = new Producto;
+	});
+	return carro;
+}
+Store.getProdEnCarro = function(){
+	var ps_carro = Lockr.get('prodsEnCarro');
+	if (ps_carro == undefined)
+		return [];
+	_.each(ps_carro, function(p_carro){		
+		p_carro.producto.__proto__ = new Producto;
+	});
+	return ps_carro;
+}
+Store.setProdEnCarro = function(prods){
+	Lockr.set('prodsEnCarro', prods);	
 }
 
-function Ventas(carro){
+function Ventas(){
 	//this.productos = productos;
-	this.carro = carro;
 	
 	this.agregarAlCarro = agregarAlCarro;
 	this.seleccionProducto = seleccionProducto;
@@ -152,23 +171,41 @@ function Ventas(carro){
 	this._agregarAlCarro = _agregarAlCarro;
 	this.cargarPromocionesRandom = cargarPromocionesRandom;
 	this._i_prods_random= _i_prods_random;
-	//this.promociones = this.cargarPromocionesRandom();
 	
-	// privados
 	this.cargarProductosYCategorias = cargarProductosYCategorias;
 	this.cargarPromociones = cargarPromociones;
+	this.cargarCarro = cargarCarro;
+	this.restart_app = restart_app;
+	this.start_app = start_app;
+
+	this.start_app();
 	
-	this.cargarProductosYCategorias();
-	this.cargarPromociones();
+	function start_app(){
+		this.cargarProductosYCategorias();
+		this.cargarPromociones();
+		this.cargarCarro();
+	}
+	function restart_app(){
+		Lockr.rm('productos');
+		Lockr.rm('categorias');
+		Lockr.rm('promociones');
+		Lockr.rm('prodsEnCarro');
+		this.start_app();
+	}
+	function cargarCarro(){
+		var carrito = new Carro();
+		carrito.productos = Store.getProdEnCarro();
+		this.carro = carrito;
+	}
+
 	function cargarPromociones () {
 		this.promociones = Store.getPromociones();
 		if (!this.promociones){
 			this.promociones = this.cargarPromocionesRandom();
 			Store.setPromociones(this.promociones);
-			console.log("Nuevas promociones generadas");
-		}		
-		console.log(this.promociones);
+		}
 	}		
+
 	function cargarProductosYCategorias(){
 		var prods = Store.getProductos();
 		var categorias = [];
@@ -182,8 +219,8 @@ function Ventas(carro){
 			Store.setProductos(prods);
 			Store.setCategorias(categorias);
 		}		
-		this.productos = prods;		
-		this.categorias = Store.getCategorias(categorias);
+		this.productos = prods;	
+		this.categorias = _.sortBy(Store.getCategorias(categorias), 'nombre');		
 	}
 
 	function _i_prods_random(cant, max_valor){
@@ -228,8 +265,6 @@ function Ventas(carro){
 			));
 			prods_para_promos = [];
 		}
-		console.log("Creadas las promociones Random");
-		console.log(promociones);
 		return promociones;
 		
 	}
@@ -241,10 +276,10 @@ function Ventas(carro){
 			for (i in promo.productos){
 				this._agregarAlCarro(promo.productos[i], promo.cantidad );
 			}
+			Store.setProdEnCarro(this.carro.productos);
 			return 'ok';
 		}
 		return 'No alcanza el stock para cubrir la promocion';
-
 	}
 
 	function seleccionProducto(indice){
@@ -259,17 +294,18 @@ function Ventas(carro){
 		if (!p.alcanzaStock(cantidad_total))
 			return "Cantidad no disponible";
 		this._agregarAlCarro(p, cantidad);	
+		Store.setProdEnCarro(this.carro.productos);
 		return "ok";
 	}
 	function actualizarCantEnCarro(id_prod, cantidad){
 		var prod = _.find(this.productos, function(p){return p.id == id_prod;});
 		if (!prod.alcanzaStock(cantidad))
 			return 'Cantidad no Disponible';	
-		this.carro.actualizarCantPorId(id_prod, cantidad, this.promociones);	
+		this.carro.actualizarCantPorId(id_prod, cantidad, this.promociones);
+		Store.setProdEnCarro(this.carro.productos);
 		return 'ok';
 	}
 	function checkout(){
-		console.log("CHECKOUT");
 		var errores = [];
 		var precio_a_pagar = this.carro.getPrecioTotal(this.promociones);
 
@@ -279,21 +315,26 @@ function Ventas(carro){
 			return "Para el producto "+prod_carro.producto.nombre+" No alcanza Stock";
 		});
 		if (_.every(results, function(elem){return elem == true})){
-			_.each(this.carro.productos,function(prod_carro){
-				prod_carro.producto.disminuirStock(prod_carro.cantidad);
+			var decrementar= _.map(this.carro.productos,function(prod_carro){
+				return {'id_prod': prod_carro.producto.id,
+						'cantidad': prod_carro.cantidad };
 			});
-			console.log(results);
-			console.log("precio a pagar "+precio_a_pagar);
+			
+			for (i in decrementar){
+				var id_buscar = decrementar[i].id_prod;
+				var prod = this.getProductoById(id_buscar);
+				prod.disminuirStock(decrementar[i].cantidad);
+			}
+			
+			
 			Store.setProductos(this.productos);
 			this.carro.vaciarCarro();
+			Store.setProdEnCarro(this.carro.productos);
 			return "Stock decrementados";
 		}
 		else{
 			console.log("devolver errores");
 		}
-
-		
-
 	}
 	function getProductos(){
 		return this.productos;
@@ -423,7 +464,7 @@ function Promocion(){
 	}	
 	this.aplicarDescuento = function(descuento, precio){
 		var result = precio - ((precio * descuento) / 100);
-		return result;
+		return result.toFixed(2);
 	};
 }
 
@@ -449,7 +490,6 @@ function Producto(){
 	this.disminuirStock = function(cant_disminuir){
 		var c = this.cantidad - cant_disminuir;
 		if (c >= 0){
-			console.log("tengo q decrementar stock en Store del producto");
 			this.cantidad = c;
 			return true;
 		}

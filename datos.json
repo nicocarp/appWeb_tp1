@@ -4,24 +4,24 @@
         "id":1,
         "nombre":"Pelota River Plate",
         "cantidad":10,
-        "precio":10,
+        "precio":399.99,
         "categoria":8,
         "imagen":"estaticos/imagenes/pelota_carp_1.jpg"
       },
       {
         "id":2,
-        "nombre":"Botines",
+        "nombre":"Camiseta River Plate",
         "cantidad":11,
-        "categoria":3,
-        "precio":11,
-        "imagen":"estaticos/imagenes/botines.jpg"
+        "categoria":1,
+        "precio":1299.00,
+        "imagen":"estaticos/imagenes/camiseta_carp_3.jpg"
       },
       {
         "id":3,
         "nombre":"Buzo River Plate 2016",
         "cantidad":12,
         "categoria":2,
-        "precio":12,
+        "precio":1100.00,
         "imagen":"estaticos/imagenes/buzo_carp_1.jpg"
       },
       {
@@ -29,7 +29,7 @@
         "nombre":"Camiseta River Plate Suplente 2016",
         "cantidad":13,
         "categoria":1,
-        "precio":14,
+        "precio":1299.00,
         "imagen":"estaticos/imagenes/camiseta_carp_1.jpg"
       },
       {
@@ -37,7 +37,7 @@
         "nombre":"Buzo River Plate Training",
         "cantidad":1,
         "categoria":2,
-        "precio":14,
+        "precio":899.00,
         "imagen":"estaticos/imagenes/buzo_carp_2.jpg"
       },
       {
@@ -45,7 +45,7 @@
         "nombre":"Buzo River Plate 2015",
         "cantidad":15,
         "categoria":2,
-        "precio":14,
+        "precio":799.00,
         "imagen":"estaticos/imagenes/buzo_carp_3.jpg"
       },
       {
@@ -53,7 +53,7 @@
         "nombre":"Camiseta River Plate 2015",
         "cantidad":10,
         "categoria":1,
-        "precio":10,
+        "precio":1399.00,
         "imagen":"estaticos/imagenes/camiseta_carp_2.jpg"
       },
       {
@@ -61,7 +61,7 @@
         "nombre":"Short River Plate",
         "cantidad":10,
         "categoria":4,
-        "precio":10,
+        "precio":699.00,
         "imagen":"estaticos/imagenes/short_carp.jpg"
       },
       {
@@ -69,7 +69,7 @@
         "nombre":"Campera River Plate",
         "cantidad":10,
         "categoria":3,
-        "precio":10,
+        "precio":2999.00,
         "imagen":"estaticos/imagenes/campera_carp_1.jpg"
       }
       ,
@@ -78,9 +78,57 @@
         "nombre":"Campera River Plate 2016",
         "cantidad":10,
         "categoria":3,
-        "precio":10,
+        "precio":2399.00,
         "imagen":"estaticos/imagenes/campera_carp_2.jpg"
-      }   
+      },
+      {
+        "id":11,
+        "nombre":"Campera River Plate 2016",
+        "cantidad":10,
+        "categoria":3,
+        "precio":1899.00,
+        "imagen":"estaticos/imagenes/campera_carp_3.jpg"
+      },
+      {
+        "id":12,
+        "nombre":"Musculosa River Plate",
+        "cantidad":10,
+        "categoria":7,
+        "precio":949.00,
+        "imagen":"estaticos/imagenes/musculosa_carp.jpg"
+      },
+      {
+        "id":13,
+        "nombre":"Pantalon River Plate",
+        "cantidad":10,
+        "categoria":10,
+        "precio":1099.00,
+        "imagen":"estaticos/imagenes/pantalones_carp.jpg"
+      },
+      {
+        "id":14,
+        "nombre":"Pelota River Plate",
+        "cantidad":15,
+        "categoria":8,
+        "precio":120.00,
+        "imagen":"estaticos/imagenes/pelota_carp_2.jpg"
+      },
+      {
+        "id":15,
+        "nombre":"Remera River Plate",
+        "cantidad":15,
+        "categoria":6,
+        "precio":120.00,
+        "imagen":"estaticos/imagenes/remera_carp1.jpg"
+      },
+      {
+        "id":15,
+        "nombre":"Remera River Plate Suplente",
+        "cantidad":15,
+        "categoria":6,
+        "precio":130.00,
+        "imagen":"estaticos/imagenes/remera_carp_2.jpg"
+      }
   ], 
   "categorias":
   [

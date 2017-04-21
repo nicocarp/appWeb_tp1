@@ -10,17 +10,18 @@ QUnit.module( "Carro", {
           "id":1,
           "nombre":"Futbol Nro5", 
     			"cantidad":10, "precio":2, 
-    			"imagen":"estaticos/imagenes/pelota.jpg"};
+    			"imagen":"estaticos/imagenes/pelota.jpg", "precio":1};
    	var prod2 ={ 
             "id":2,
             "nombre":"Futbol Nro4",
         		"cantidad":10, "precio":5,
-        		"imagen":"estaticos/imagenes/pelota.jpg"};
+        		"imagen":"estaticos/imagenes/pelota.jpg", "precio":2};
 	this.prod1 = prod1;
 	this.prod2 = prod2;
   },
     beforeEach: function() {
     this.carrito = new Carro();
+    this.carrito.productos = [];
 
   }
 });

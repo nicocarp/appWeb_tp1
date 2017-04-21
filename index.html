@@ -13,24 +13,19 @@
 <body>
 
 <!-- ININCIO NAV  -->
-<div class="" id="principal">
 <nav class=" white" role="navigation">
-	<div class="nav-wrapper container">
-		<a href="#!" class="brand-logo red-text"><i class="material-icons">cloud</i>Tienda River Plate</a>
+	<div class="nav-wrapper container ">
+		<a href="#!"  class="brand-logo black-text "><i id="logo_river"></i>
+			Tienda</a>
 		<ul class="right hide-on-med-and-down">
-			<li><a class="red-text" id="mostrar_productos" href="#contenedor_productos_ventas">Productos</a></li>
-			<li><a a class="red-text" id="mostrar_promociones" href="#contenedor_promos">Promociones</a></li>
-			<li><a href="sass.html" class="red-text"><i class="material-icons">search</i></a></li>
-			<li><a id="" href="" class="red-text"><i  class="material-icons">perm_identity</i></a></li>
-
-
+			<li><a class="black-text" id="mostrar_productos" >Productos</a></li>
+			<li><a class="black-text" id="mostrar_promociones" >Promociones</a></li>
+			<li><a class="black-text" id="restart_app" >Restart</a></li>
 		</ul>
 		 <ul id="nav-mobile" class="side-nav">
-	       <li><a id="" href="">Productos</a></li>
-			<li><a id="mostrar_promociones" >Promociones</a></li>
-	       <li><a a class="red-text" href="sass.html"><i class="material-icons">search</i></a></li>
-			<li><a a class="red-text" id="" href=""><i  class="material-icons">perm_identity</i></a></li>
-			
+			<li><a class="black-text" id="mostrar_productos" >Productos</a></li>
+			<li><a a class="black-text" id="mostrar_promociones" >Promociones</a></li>
+			<li><a class="black-text" id="restart_app" >Restart</a></li>
 	     </ul>
 		 <a href="#" data-activates="nav-mobile" class="button-collapse red-text"><i class="material-icons">menu</i></a>
 	</div>
@@ -39,79 +34,69 @@
 
 
 <!-- CONTENEDOR PRINCIPAL  -->
-<div class="section no-pad-bot" id="index-banner">
-    
-    	
-      <br><br>
-      <h1 class="header center black-text accent-5"><strong></strong></h1>
+<div class="section no-pad-bot" id="index-banner">  
+      
       <div class="row center">
-        <h5 class="header col s12 t"></h5>
+        <h5 class="header_titulo" id="header_titulo"></h5>
       </div>
-      <div class="row center">
-        
-      </div>
-      <br><br>
+     
     </div>
-</div>
 
     
 <!-- Boton flotante carrito-->
-<div class="fixed-action-btn" style="bottom: 45px; right: 24px; top:45px;">
+<div class="btn_shopping_car fixed-action-btn">
 	    <a id="mostrar_carro" href="#modal_carro" class="btn-floating btn-large red">
 	      <i style="position:relative; left: -5px;" class="material-icons">shopping_cart</i>
 	    </a>
-	    <span class="white-text "style="z-index:3; position:relative; left: -25px;">
+	    <span class="numero_shopping_car white-text ">
 	    	<i id="cantidad_productos_carro"></i>
 	    </span>
 </div>     	
 <!-- Fin boton flotante carrito-->
     
- <!-- Inicio Listado de productos en Ventas-->
+<!-- CONTENEDORES PRINCIPALES  -->
 <div class="container">
-<div class="section z-depth-1">
-		 <!-- Row para FILTROS-->
-		<div class="row">
-			<div class="input-field col s4">
-				<select id="filtro-select-categorias">
-					<option value=""  selected></option>						
-				</select>
-				<label>Categoria</label>
-			</div>
-	        <div class="input-field col s4">
-	          	<input id="filtro-nombre" value="" type="text" class="validate">
-				<label for="filtro-nombre">Nombre</label>
-	        </div>
-	        <div class="input field col s4 ">
-					<input type="checkbox" id="filtro-en-stock" />
-					<label for="filtro-en-stock">En Stock</label>
-			</div>
-		</div>
-		<!-- FIN FILTROS  -->
-
-		    
+			
 		<div class="divider"></div>
-		<!-- CONTENEDORES PRINCIPALES  -->
+		
 		<div id="contenedor_promos"></div>
-		<div id="contenedor_productos_ventas" class="row card-panel grey lighten-5 z-depth-1"> 		
+		
+		<div id="contenedor_productos_ventas" class="row">
+			<!-- Row para FILTROS-->	
+			<div class="col m12 s0">
+				<div class="input-field col s4">
+					<select id="filtro-select-categorias">
+						<option value=""  selected></option>						
+					</select>
+					<label>Categoria</label>
+				</div>
+		        <div class="input-field col s4">
+		          	<input id="filtro-nombre" value="" type="text" class="validate">
+					<label for="filtro-nombre">Nombre</label>
+		        </div>
+		        <div class="input field col s4 "><br>
+						<input type="checkbox" id="filtro-en-stock">
+						<label for="filtro-en-stock">En Stock</label>
+				</div>
+			</div>
+
+
+			 <!-- Inicio Listado de productos en Ventas-->
+		
 			<ul id="productos_ventas"></ul>
+		
 		</div>
 
-</div>
+	
 </div>
   	    
 <!-- Fin contenedor principal  -->
-
-<!-- Test  
-	<div id="qunit"></div>
-  	<div id="qunit-fixture"></div>
-  -->
-<!-- FIN  Test  -->
 
 
 <!-- Modal Carrito -->
 <div id="modal_carro" class="modal modal-fixed-footer">
 	<div class="modal-content">
-		<h4 class="header center black-text" >Carrito</h4>			
+		<h4 class="header center black-text" >Carro</h4>			
 		<ul class="collection" id="productos_carro"></ul>		
 	</div>
 	<div class="modal-footer">
@@ -128,7 +113,7 @@
 <!-- Modal INFO PRODUCTO -->
 <div id="modal_info_producto" class="modal modal-fixed-footer">
 	<div class="modal-content">
-		<h3 class="header center black-text" >Add</h3>
+		<h4 class="header center black-text" >Comprar</h4>
 			<div id="info_prod"></div>  				
 	</div>	
 </div>
@@ -149,7 +134,7 @@
 <script id="promo-tpl" type="text/tempalte">
 
 {{ _.each(promociones, function(promocion){ }}
-<div class="row card-panel grey lighten-5 z-depth-1"> 			  					
+<div class="row card-panel white lighten-5 z-depth-1"> 			  					
 	<div class="col s12 m8 left">
 	{{ _.each(promocion.productos, function(producto){ }}	
 		<div class="row valign-wrapper">
@@ -165,7 +150,7 @@
 	</div>
 	<div class="row col s12 m4">
 		<p class="col m12 s12">{{=promocion.mjePromocion}}</p>
-		<p class="col m12 s4 left">$ {{=promocion.getPrecioTotalSinDescuento()}}</p>
+		<p class="col m12 s4 left precio-viejo">$ {{=promocion.getPrecioTotalSinDescuento()}}</p>
 		<p class="col m12 s4 right">$ {{=promocion.getPrecioTotalConDescuento()}}</p>
 		{{ if (promocion.hayStock()) {  }}
 			<a class="btn col m12 s12" data-promo-id="{{=promocion.id}}" id="agegar_combo_al_carro">Agregar</a>	
@@ -180,20 +165,21 @@
 
 <script type="text/template" id="nuevo-producto-carro-tpl">
 {{ _.each(carro.productos, function(producto){  }}
+
 <li class="collection-item" id="{{=producto.producto.nombre}}">
 	<div class="row">
     	<div class="col l3 m3 s12">
       		<img src="{{=producto.producto.imagen}}" alt="" class=" responsive-img">
     	</div>
-    	<div class="row col l5 m4 s12">
-     	 		<p><span class="black-text">{{=producto.producto.nombre}}</span></p>
-	     	 	<span id="mje_promo" class="left white-text new badge grey" data-badge-caption="Promocion"></span>
+    	<div class="row col l3 m4 s12">
+ 	 		<p><span class="black-text">{{=producto.producto.nombre}}</span></p>
+     	 	
 
     	</div> 
-   	 	<div class="col l2 m3 s5">
+   	 	<div class="col l2 m3 s12">
 			<input id="cant_carrito" data-valid-cant="{{=producto.cantidad}}" data-id-prod="{{=producto.producto.id}}" maxlength="12" value="{{=producto.cantidad}}" type="number"> 	
     	</div>
-    	<div class="col l2 m2 s7">
+    	<div class="col l4 m2 s12">
     		<div class="field">
     			<p<span class="right">$ {{=producto.precioSubTotal}}</span></p>
     			<span class="precio_unitario right">$ {{=producto.producto.precio}}/cu</span>
@@ -255,17 +241,28 @@
 			<div class="card-image" >
 				<img class="responsive-img" src="{{=producto.imagen}}">	
 			</div>
-			<div class="card-content">
+			<div class=" card-content">
 				<span class="nombre-prod">{{=producto.nombre}}</span>	
+				
+
+				<div class="col s12  center">
+					<span class=" badge bottom ">Stock {{=producto.cantidad}}</span>	
+				</div>
+
+				<br>
+				<div class=" col s12">
 				{{ if (hay_promo != undefined && hay_promo.promocion.getTipo() == "descuento" ){ }}
 				{{var func_descuento = _.partial(hay_promo.promocion.aplicarDescuento, hay_promo.promocion.descuento);}}
-					<span class="precio-viejo left">$ {{=producto.precio}}</span>	
-					<span class="precio-promo right">$ {{=producto.getPrecioUnitario(func_descuento)}}</span>	
+					
+					<span class="precio-promo right ">$ {{=producto.getPrecioUnitario(func_descuento)}}</span>	
+					<br><br>
+					<span class="precio-viejo right">$ {{=producto.precio}}</span>	
+					
 				{{ }else{ }}
 					<span class="precio-sin-promo right">$ {{=producto.precio}}</span>	
 				{{ } }}
-				<br><span class=" badge bottom">Stock {{=producto.cantidad}}</span>	
-				</div>
+				</div>					
+			</div>
 		</div>
 	</li></a>
 {{ }); }}
@@ -281,10 +278,11 @@
 		<img src="{{=producto.imagen}}" style="width: -moz-available;">
 	</div>
 	<div class="col m6 s12">
-		<h4>{{=producto.nombre}}</h4>
+		<h5>{{=producto.nombre}}</h5>
 		{{var precio_unitario = producto.precio;}}
 		{{ if(hay_promo) { }}
-			<span>{{=hay_promo.promocion.mjePromocion}}</span>
+			<span style="height:auto !important;" class=" badge yellow black-text">{{=hay_promo.promocion.mjePromocion}}</span>
+			<br><br><br>
 			{{ if (hay_promo.promocion.getTipo() == 'descuento')}}
 			{{var func_descuento = _.partial(hay_promo.promocion.aplicarDescuento, hay_promo.promocion.descuento);}}
 				{{precio_unitario = producto.getPrecioUnitario(func_descuento);}}
@@ -325,17 +323,15 @@
 		$('.tooltipped').tooltip({delay: 50});
 
   	 	var productosCarroTpl = _.template($("#nuevo-producto-carro-tpl").html());
-		var carrito = new Carro();
-		var ventas = new Ventas(carrito);
+		var ventas = new Ventas();
 		armar_html_productos_en_ventas(ventas.productos, ventas.getIdsProdsEnPromo());
 		armar_html_categorias(ventas.categorias);
-	
+		actualizar_numeros_carro();		
+		mostrar_productos_ventas();
 
-		/* NUEVA INTERFAZ*/
+
 		
 
-		
-		/*fin nueva interfaz*/
 		function armar_html_categorias(categorias){
 			_.each(categorias, function(categoria){
 				$('#filtro-select-categorias').append($('<option>', {
@@ -354,13 +350,13 @@
 		}
 
 		function actualizar_numeros_carro(){			
-			$("#cantidad_productos_carro").html(carrito.getCantProductos());
+			$("#cantidad_productos_carro").html(ventas.carro.getCantProductos());
 		}
 
-		function armar_html_carro() {
-			var promociones = ventas.getPromociones();
+		function armar_html_carro(carro, promociones) {
+			var promociones = promociones;
 			var html_productos = productosCarroTpl({
-				"carro":carrito,
+				"carro":carro,
 				"promociones":promociones
 			}); 
 			$("#productos_carro").html(html_productos);			
@@ -383,7 +379,7 @@
 				"nombre":buscar_por_nombre
 			};
 			var productos = ventas.getProductosPorFiltro(filtros);
-			armar_html_productos_en_ventas(productos);
+			armar_html_productos_en_ventas(productos, ventas.getIdsProdsEnPromo());
 		}
 
 		
@@ -392,13 +388,24 @@
 			$("#contenedor_productos_ventas").hide();
 			$("#contenedor_promos").show();
 			armar_html_promo(ventas.promociones);
+			  $('.button-collapse').sideNav('hide');
+			$('#header_titulo').html("Promociones del dia");
 		});
 	
-		$(document).on('click', '#mostrar_productos', function(){
+		function mostrar_productos_ventas(){
 			$("#contenedor_promos").hide();		
 			$("#contenedor_productos_ventas").show();
-			//armar_html_productos_en_ventas(ventas.productos, ventas.getIdsProdsEnPromo());
+			  $('.button-collapse').sideNav('hide');
+			$('#header_titulo').html("Todos los productos");
+			armar_html_productos_en_ventas(ventas.productos, ventas.getIdsProdsEnPromo());
+		}
+		$(document).on('click', '#mostrar_productos', mostrar_productos_ventas);
+		$(document).on('click', '#restart_app', function(){
+			ventas.restart_app();
+			location.reload();
 		});
+
+
 		
 		/* Eventos de filtro */
 		$(document).on('change', '#filtro-select-categorias', filtrado_productos);
@@ -429,8 +436,7 @@
 			var result = ventas.agregarAlCarro(prod_id,cantidad);
 			if ( result == 'ok'){
 				actualizar_numeros_carro();
-				 $('#modal_carro').modal('close');
-				
+				 $('#modal_carro').modal('close');			
 			}				
 			else
 				Materialize.toast(result, 4000);
@@ -443,28 +449,28 @@
 			var result = ventas.actualizarCantEnCarro(id_prod, nueva_cantidad);
 			if (result == 'ok'){
 				$(this).data("validCant", nueva_cantidad);
-				armar_html_carro();	
+				armar_html_carro(ventas.carro, ventas.getPromociones());	
 			}else{
 				$(this).val($(this).data("validCant"));
 				Materialize.toast(result, 4000);	
 			}			
 		});
 
-		$(document).on('click', '#mostrar_carro', armar_html_carro);
+		$(document).on('click', '#mostrar_carro', function(){
+			armar_html_carro(ventas.carro, ventas.getPromociones());
+		});
 
 		$(document).on('click', '#sacar_del_carro', function(e) {
-			carrito.sacarDelCarro($(this).parents('li').index());
-			armar_html_carro();
+			ventas.carro.sacarDelCarro($(this).parents('li').index());
+			armar_html_carro(ventas.carro, ventas.getPromociones());
 		});
 		/* checkout */
 		$(document).on('click', '#btn_checkout', function(e){
 			var result = ventas.checkout();
-			armar_html_carro();
+			armar_html_carro(ventas.carro, ventas.getPromociones());
 			//var check-tpl = _.template($("#checkout-tpl").html());
 			Materialize.toast(result, 4000);
-
-
-			
+			setTimeout ("location.reload();", 2000);			
 		});
 		
 		
