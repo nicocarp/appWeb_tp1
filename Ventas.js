@@ -19,7 +19,7 @@ function Carro(){
 	function getCantProdById(id_prod){
 		var prod_en_carro =_.find(this.productos, function(producto){return producto.producto.id == id_prod})
 		if (prod_en_carro)
-			return prod_en_carro.cantidad;
+			return Number(prod_en_carro.cantidad);
 		return 0;
 	}
 	function getTotalSinDescuento(){
@@ -40,14 +40,14 @@ function Carro(){
 			producto_para_agregar = {
 				"producto": producto, 
 				"cantidad": Number(cantidad),
-				"precioSubTotal": Number(sub_total)
+				"precioSubTotal": (producto.getPrecio(cantidad)).toFixed(2) 
 			}
 			this.productos.push(producto_para_agregar);	
 		}else{
 			producto_para_agregar.cantidad += Number(cantidad);
-			var sub_total = cantidad * producto.precio;
-			sub_total = sub_total.toFixed(2);
-			producto_para_agregar.precioSubTotal += Number(sub_total);
+			producto_para_agregar.precioSubTotal = (producto.getPrecio(producto_para_agregar.cantidad)).toFixed(2); 
+			 
+			console.log("todiex");
 		}
 	}
 
